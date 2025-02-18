@@ -75,7 +75,7 @@ def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
 SECRET_KEY = secrets.token_urlsafe(32)
 TOKEN_EXPIRY_SECONDS = 21600 
 TURNSTILE_SECRET_KEY = "0x4AAAAAAAzlMli8bi3JNb93TAutfAHmPp4"
-ruix = "mongodb+srv://anidl:encodes@cluster0.oobfx33.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+ruix = "mongodb+srv://diablo:OH4WLGrCZOlG6FH6@cluster0.qokt3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo_client = MongoClient(ruix)
 dbx = mongo_client["drive"]
 file_stats_collection = dbx["file_stats"]
@@ -1356,7 +1356,7 @@ async def generate_magic_link(ADMIN_TELEGRAM_ID):
     """
     # Generate a unique token
     token = secrets.token_urlsafe(32)
-    expiration_time = datetime.utcnow() + timedelta(minutes=5)
+    expiration_time = datetime.utcnow() + timedelta(minutes=10)
     if ADMIN_TELEGRAM_ID=="1498366357":
         uploader="Diablo"
     elif ADMIN_TELEGRAM_ID=="162010513":
@@ -1375,7 +1375,7 @@ async def generate_magic_link(ADMIN_TELEGRAM_ID):
     )
 
     # Construct the magic link URL
-    base_url = "https://drive.ddlserverv1.me.in"  # Replace with your actual domain
+    base_url = "https://hi-drive.ddlserverv1.me.in"  # Replace with your actual domain
     magic_link = f"{base_url}/magic-link/{token}?id={ADMIN_TELEGRAM_ID}"
 
     # Send the magic link via Telegram
@@ -1404,8 +1404,8 @@ async def validate_magic_link(token: str, request: Request, response: Response):
 
     # Check if the magic link has already been used (if use_count is 1
 
-    # Generate a session token (valid for 3 days)
-    expiration = datetime.utcnow() + timedelta(days=3)
+    # Generate a session token (valid for 7 days)
+    expiration = datetime.utcnow() + timedelta(days=30)
     session_token = jwt.encode({"telegram_id": int(ADMIN_TELEGRAM_ID), "exp": expiration}, JWT_SECRET, algorithm="HS256")
 
     # Issue session cookie and redirect to the main page
