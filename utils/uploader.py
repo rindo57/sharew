@@ -65,7 +65,7 @@ def get_country_code_from_language(lang_code):
         "my": "mm", "ne": "np", "no": "no", "pl": "pl", "pt": "pt", "ps": "af", "qu": "pe", "ro": "ro", 
         "ru": "ru", "sr": "rs", "si": "lk", "sk": "sk", "sl": "si", "es": "es", "su": "id", "sw": "ke", 
         "sv": "se", "ta": "in", "tt": "ru", "te": "in", "th": "th", "tr": "tr", "uk": "ua", "ur": "pk", 
-        "uz": "uz", "vi": "vn", "cy": "gb", "xh": "za", "yi": "de", "zu": "za"
+        "uz": "uz", "vi": "vn", "cy": "gb", "xh": "za", "yi": "de", "zu": "za", "日本語": "jp"
     }
 
     # If a direct mapping exists, return the country code
