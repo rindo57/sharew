@@ -9,7 +9,7 @@ API_ID=10247139
 API_HASH="96b46175824223a33737657ab943fd6a"
 
 # List of Telegram bot tokens used for file upload/download operations
-BOT_TOKENS = os.getenv("BOT_TOKENS", "6769415354:AAHh7IfKn11PWuNxUo0qmoIuW7NclxaaFHQ").strip(", ").split(",")
+BOT_TOKENS = os.getenv("BOT_TOKENS", "6769415354:AAHh7IfKn11PWuNxUo0qmoIuW7NclxaaFHQ", "8041824577:AAGSvtr0zs5QYTSvtFdfg_0-yPLmGpnOZtE", "8011406064:AAGnj7QXMKZoGCU2hpcXmfyj9VahagDhUjU", "8081002376:AAGvj-wBC_4EWKUu_XT_F-rDL6nwV1LAERs").strip(", ").split(",")
 #BOT_TOKENS = os.getenv("BOT_TOKENS", "7341876935:AAGA0OsJjpGgWHnGK_MKMWoWpKRfkDgushI").strip(", ").split(",")
 BOT_TOKENS = [token.strip() for token in BOT_TOKENS if token.strip() != ""]
 
@@ -50,11 +50,11 @@ WEBSITE_URL = os.getenv("WEBSITE_URL", None)
 # For Using TG Drive's Bot Mode
 
 # Main Bot Token for TG Drive's Bot Mode
-MAIN_BOT_TOKEN = os.getenv("MAIN_BOT_TOKEN", "6769415354:AAHh7IfKn11PWuNxUo0qmoIuW7NclxaaFHQ")
+MAIN_BOT_TOKEN = os.getenv("MAIN_BOT_TOKEN", "7430016691:AAFFgk-_e-LUOBpo6yiGaGIZVMAgYZ7fOh8")
 #MAIN_BOT_TOKEN = os.getenv("MAIN_BOT_TOKEN", "7341876935:AAGA0OsJjpGgWHnGK_MKMWoWpKRfkDgushI")
 if MAIN_BOT_TOKEN.strip() == "":
     MAIN_BOT_TOKEN = None
 
 # List of Telegram User IDs who have admin access to the bot mode
-TELEGRAM_ADMIN_IDS = os.getenv("TELEGRAM_ADMIN_IDS", "6542409825, 1498366357").strip(", ").split(",")
+TELEGRAM_ADMIN_IDS = os.getenv("TELEGRAM_ADMIN_IDS", "6542409825, 1498366357, 5419097944, 162010513, 590009569, 1863307059").strip(", ").split(",")
 TELEGRAM_ADMIN_IDS = [int(id) for id in TELEGRAM_ADMIN_IDS if id.strip() != ""]
