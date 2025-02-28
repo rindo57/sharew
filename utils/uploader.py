@@ -82,7 +82,7 @@ def get_country_code_from_language(lang_code):
     except KeyError:
         pass
 
-    return lang_code  # Return the language code as-is if no mapping exists
+    return None  # Return the language code as-is if no mapping exists
 
 #### Piracy.moe Start ####
 def json_encode(string):
