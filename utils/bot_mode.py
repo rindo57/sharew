@@ -83,7 +83,7 @@ def get_country_code_from_language(lang_code):
         "my": "mm", "ne": "np", "no": "no", "pl": "pl", "pt": "pt", "ps": "af", "qu": "pe", "ro": "ro", 
         "ru": "ru", "sr": "rs", "si": "lk", "sk": "sk", "sl": "si", "es": "es", "su": "id", "sw": "ke", 
         "sv": "se", "ta": "in", "tt": "ru", "te": "in", "th": "th", "tr": "tr", "uk": "ua", "ur": "pk", 
-        "uz": "uz", "vi": "vn", "cy": "gb", "xh": "za", "yi": "de", "zu": "za"
+        "uz": "uz", "vi": "vn", "cy": "gb", "xh": "za", "yi": "de", "zu": "za",  "日本語": "jp", "zxx": "us"
     }
 
     # If a direct mapping exists, return the country code
@@ -100,7 +100,7 @@ def get_country_code_from_language(lang_code):
     except KeyError:
         pass
 
-    return lang_code  # Return the language code as-is if no mapping exists
+    return None  # Return the language code as-is if no mapping exists
 # Simple HTTP Session Client, keeps cookies
 class UrllibClient:
     def __init__(self):
