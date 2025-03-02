@@ -299,7 +299,7 @@ async def set_folder_callback(client: Client, callback_query: Message):
     folder_path, name = folder_path_cache.get(folder_id)
     del SET_FOLDER_PATH_CACHE[int(folder_cache_id)]
     print("folder path ", folder_path)
-    dir_result = DRIVE_DATA.search_file_folder("citrus", folder_path)
+    dir_result = DRIVE_DATA.search_file_folder(folder_path)
     print("dir_result ", dir_result) 
     await main_bot.send_message(user_id, dir_result)
     BOT_MODE.set_folder(folder_path, name)
