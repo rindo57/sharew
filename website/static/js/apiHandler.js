@@ -350,7 +350,8 @@ async function uploadFile(file) {
     const id = getRandomId();
     const path = getCurrentPath();
     const password = getPassword();
-    const filenamex = file.name
+    const filenamex = file.name;
+
     for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
         const start = chunkIndex * CHUNK_SIZE;
         const end = Math.min(file.size, start + CHUNK_SIZE);
@@ -364,7 +365,7 @@ async function uploadFile(file) {
         formData.append("chunkIndex", chunkIndex);
         formData.append("totalChunks", totalChunks);
         formData.append("filename", file.name);
-         formData.append("filenamex", filenamex);
+        formData.append("filenamex", filenamex);
         formData.append("total_size", file.size);
 
         const uploadRequest = new XMLHttpRequest();
@@ -385,25 +386,23 @@ async function uploadFile(file) {
                     "Progress: " + percentComplete.toFixed(2) + "%";
             }
         });
-//boom
-    uploadRequest.upload.addEventListener('load', async () => {
-        await updateSaveProgress(id)
-    });
 
-    uploadRequest.upload.addEventListener('error', () => {
-        alert('Upload failed');
-        window.location.reload();
-    });
+        uploadRequest.upload.addEventListener("load", async () => {
+            await updateSaveProgress(id);
+        });
 
-    uploadRequest.send(formData);
-});
-// boomm
+        uploadRequest.upload.addEventListener("error", () => {
+            alert("Upload failed");
+            window.location.reload();
+        });
+
+        uploadRequest.send(formData);
+    } // <-- Correctly closing the loop
+
     activeUploads--;
     currentUploadingFile = null; // clear current uploading file
 
     processUploadQueue();
-
-    //alert("Upload completed successfully!");
 }
 
 cancelButton.addEventListener('click', () => {
