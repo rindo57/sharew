@@ -416,59 +416,77 @@ cancelButton.addEventListener('click', () => {
 });
 
 async function updateSaveProgress(id) {
-    console.log('save progress');
+    console.log('Monitoring backend processing...');
     progressBar.style.width = '0%';
     uploadPercent.innerText = 'Progress : 0%';
     document.getElementById('upload-status').innerText = 'Status: Processing File On Backend Server';
 
     const interval = setInterval(async () => {
-        const response = await postJson('/api/getSaveProgress', { 'id': id });
-        const data = response['data'];
+        try {
+            const response = await postJson('/api/getSaveProgress', { 'id': id });
+            console.log("Backend response:", response);
 
-        if (data[0] === 'running') {
-            const current = data[1];
-            const total = data[2];
-            document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
+            const data = response['data'];
+            if (data[0] === 'running') {
+                const current = data[1];
+                const total = data[2];
+                document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
 
-            const percentComplete = (current / total) * 100;
-            progressBar.style.width = percentComplete + '%';
-            uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
-        } else if (data[0] === 'completed') {
+                const percentComplete = (current / total) * 100;
+                progressBar.style.width = percentComplete + '%';
+                uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
+            } else if (data[0] === 'completed') {
+                clearInterval(interval);
+                uploadPercent.innerText = 'Progress : 100%';
+                progressBar.style.width = '100%';
+
+                console.log("Backend processing complete. Calling handleUpload2...");
+                await handleUpload2(id); // Start uploading to Telegram
+            } else {
+                console.error("Unexpected backend status:", data[0]);
+            }
+        } catch (error) {
+            console.error("Error in updateSaveProgress:", error);
             clearInterval(interval);
-            uploadPercent.innerText = 'Progress : 100%';
-            progressBar.style.width = '100%';
-
-            // Call handleUpload2 to start uploading to Telegram
-            await handleUpload2(id);
         }
     }, 3000);
 }
 
 async function handleUpload2(id) {
+    console.log("Starting upload to Telegram...");
     document.getElementById('upload-status').innerText = 'Status: Uploading To Telegram Server';
     progressBar.style.width = '0%';
     uploadPercent.innerText = 'Progress : 0%';
 
     const interval = setInterval(async () => {
-        const response = await postJson('/api/getUploadProgress', { 'id': id });
-        const data = response['data'];
-        if (data[0] === 'running') {
-            const current = data[1];
-            const total = data[2];
-            document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
+        try {
+            const response = await postJson('/api/getUploadProgress', { 'id': id });
+            console.log("Telegram upload response:", response);
 
-            let percentComplete;
-            if (total === 0) {
-                percentComplete = 0;
+            const data = response['data'];
+            if (data[0] === 'running') {
+                const current = data[1];
+                const total = data[2];
+                document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
+
+                let percentComplete;
+                if (total === 0) {
+                    percentComplete = 0;
+                } else {
+                    percentComplete = (current / total) * 100;
+                }
+                progressBar.style.width = percentComplete + '%';
+                uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
+            } else if (data[0] === 'completed') {
+                clearInterval(interval);
+                activeUploads--; // Decrement active uploads counter after uploading
+                processUploadQueue(); // Check for the next file in the queue
             } else {
-                percentComplete = (current / total) * 100;
+                console.error("Unexpected Telegram upload status:", data[0]);
             }
-            progressBar.style.width = percentComplete + '%';
-            uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
-        } else if (data[0] === 'completed') {
+        } catch (error) {
+            console.error("Error in handleUpload2:", error);
             clearInterval(interval);
-            activeUploads--; // Decrement active uploads counter after uploading
-            processUploadQueue(); // Check for the next file in the queue
         }
     }, 3000);
 }
