@@ -243,8 +243,7 @@ async def set_folder_handler(client: Client, message: Message):
         folder_name = folder_name.text.strip()
         print("folder patch cache: ", SET_FOLDER_PATH_CACHE)
         search_result = DRIVE_DATA.search_file_folderx(folder_name)
-        dir_result = DRIVE_DATA.search_file_folder(folder_name, SET_FOLDER_PATH_CACHE)
-        print("dir_result ", dir_result) 
+        
         
         # Get folders from search result
         folders = {}
@@ -301,6 +300,10 @@ async def set_folder_callback(client: Client, callback_query: Message):
 
     folder_path, name = folder_path_cache.get(folder_id)
     del SET_FOLDER_PATH_CACHE[int(folder_cache_id)]
+    print("folder path ", folder_path)
+    dir_result = DRIVE_DATA.search_file_folder(folder_name, folder_path)
+    print("dir_result ", dir_result) 
+    await main_bot.send_message(dir_result)
     BOT_MODE.set_folder(folder_path, name)
 
     await callback_query.answer(f"Folder Set Successfully To : {name}")
