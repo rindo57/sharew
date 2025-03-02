@@ -273,7 +273,7 @@ class NewDriveData:
 
 
     
-    def search_file_folder(self, query: str, path: str):
+    def search_file_folder(self, query: str = None, path: str):
         if path=="":
             root_dir = self.get_directory("/")
         elif path=="/":
