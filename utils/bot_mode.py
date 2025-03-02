@@ -241,8 +241,11 @@ async def set_folder_handler(client: Client, message: Message):
             return
 
         folder_name = folder_name.text.strip()
+        print("folder patch cache: ", SET_FOLDER_PATH_CACHE)
         search_result = DRIVE_DATA.search_file_folderx(folder_name)
-
+        dir_result = DRIVE_DATA.search_file_folder(folder_name, SET_FOLDER_PATH_CACHE)
+        print("dir_result ", dir_result) 
+        
         # Get folders from search result
         folders = {}
         for item in search_result.values():
