@@ -1,1 +1,702 @@
-const _0x5f2041=_0x25ed;(function(_0xb3b535,_0x5b774e){const _0x661f98=_0x25ed,_0x23e40b=_0xb3b535();while(!![]){try{const _0x5f2264=-parseInt(_0x661f98(0xf1))/0x1*(parseInt(_0x661f98(0x171))/0x2)+parseInt(_0x661f98(0x127))/0x3*(parseInt(_0x661f98(0x10f))/0x4)+-parseInt(_0x661f98(0x153))/0x5*(parseInt(_0x661f98(0x13c))/0x6)+parseInt(_0x661f98(0x12e))/0x7+parseInt(_0x661f98(0xff))/0x8*(parseInt(_0x661f98(0x137))/0x9)+parseInt(_0x661f98(0x16b))/0xa+-parseInt(_0x661f98(0x13e))/0xb;if(_0x5f2264===_0x5b774e)break;else _0x23e40b['push'](_0x23e40b['shift']());}catch(_0x1d419a){_0x23e40b['push'](_0x23e40b['shift']());}}}(_0x2b3b,0x3988a));async function postJson(_0x5918c6,_0x34fdd4){const _0x4899b4=_0x25ed;_0x34fdd4[_0x4899b4(0x120)]=getPassword();const _0x5edb00=await fetch(_0x5918c6,{'method':_0x4899b4(0xf5),'headers':{'Content-Type':'application/json'},'body':JSON[_0x4899b4(0x142)](_0x34fdd4)});return await _0x5edb00[_0x4899b4(0x177)]();}const maxAttempts=0x5,lockoutDuration=0x3c*0x3c*0x3e8,attemptsKey=_0x5f2041(0x17e),lockoutTimeKey=_0x5f2041(0x136),interactionData={'mouseMovements':[],'clicks':0x0,'keypresses':0x0,'touchMovements':[]};function initializeAttempts(){const _0x5456a1=_0x5f2041,_0x3e74c6=localStorage['getItem'](attemptsKey),_0x17f0b0=localStorage[_0x5456a1(0x132)](lockoutTimeKey);if(_0x17f0b0&&Date[_0x5456a1(0xe7)]()>=Number(_0x17f0b0))return localStorage['removeItem'](attemptsKey),localStorage['removeItem'](lockoutTimeKey),0x0;return _0x3e74c6?Number(_0x3e74c6):0x0;}let attempts=initializeAttempts();function saveAttempts(_0x19a9cc){const _0x20b111=_0x5f2041;localStorage[_0x20b111(0x170)](attemptsKey,_0x19a9cc),_0x19a9cc>=maxAttempts&&localStorage[_0x20b111(0x170)](lockoutTimeKey,Date[_0x20b111(0xe7)]()+lockoutDuration);}document[_0x5f2041(0x179)](_0x5f2041(0x16d),_0x255c0c=>{const _0x171878=_0x5f2041;interactionData[_0x171878(0x125)][_0x171878(0x17a)]({'x':_0x255c0c['clientX'],'y':_0x255c0c[_0x171878(0x159)],'time':Date['now']()});}),document[_0x5f2041(0x131)](_0x5f2041(0xea))[_0x5f2041(0x179)]('click',()=>{const _0x16fb15=_0x5f2041;interactionData[_0x16fb15(0x14b)]++;}),document[_0x5f2041(0x179)]('touchmove',_0x2db899=>{const _0x3be14a=_0x5f2041,_0x40040e=_0x2db899['touches'][0x0];interactionData[_0x3be14a(0x146)][_0x3be14a(0x17a)]({'x':_0x40040e[_0x3be14a(0x165)],'y':_0x40040e[_0x3be14a(0x159)],'time':Date[_0x3be14a(0xe7)]()});}),document[_0x5f2041(0x131)](_0x5f2041(0x167))[_0x5f2041(0x179)](_0x5f2041(0xfc),()=>{const _0x156c7e=_0x5f2041;interactionData[_0x156c7e(0x117)]++;}),document[_0x5f2041(0x131)](_0x5f2041(0x167))[_0x5f2041(0x179)](_0x5f2041(0x126),()=>{const _0x1fcea1=_0x5f2041;interactionData[_0x1fcea1(0x117)]++;}),document[_0x5f2041(0x131)](_0x5f2041(0xea))['addEventListener']('click',async()=>{const _0x22cdeb=_0x5f2041,_0x5a1e9c=document[_0x22cdeb(0x131)](_0x22cdeb(0xea)),_0x5f07be=document[_0x22cdeb(0x131)]('auth-pass')[_0x22cdeb(0x108)],_0x381b7d=document[_0x22cdeb(0x131)]('error-message'),_0x39aa74=localStorage[_0x22cdeb(0x132)](lockoutTimeKey);if(_0x39aa74&&Date[_0x22cdeb(0xe7)]()<Number(_0x39aa74)){_0x381b7d[_0x22cdeb(0x11c)]=_0x22cdeb(0x101),_0x381b7d[_0x22cdeb(0x12f)][_0x22cdeb(0x183)]='block';return;}if(!_0x5f07be){alert('Please\x20enter\x20your\x20password.');return;}const _0x1de9b6={'pass':_0x5f07be,'interactionData':interactionData},_0x4ddfdc=await postJson('/api/checkPassword',_0x1de9b6);_0x4ddfdc[_0x22cdeb(0xe0)]==='ok'?(alert(_0x22cdeb(0xfa)),window[_0x22cdeb(0xf8)]['reload']()):(attempts++,saveAttempts(attempts),attempts>=maxAttempts?(_0x5a1e9c['disabled']=!![],_0x381b7d[_0x22cdeb(0x12f)][_0x22cdeb(0x183)]=_0x22cdeb(0xe3)):alert(_0x22cdeb(0x16c)+(maxAttempts-attempts)+_0x22cdeb(0x178))),document[_0x22cdeb(0x131)](_0x22cdeb(0x167))[_0x22cdeb(0x108)]='';});function _0x2b3b(){const _0x1564c6=['createElement','overflow','getElementsByTagName','300px','Pragma','\x20MB','Network\x20error\x20while\x20uploading\x20chunk\x20','clientX','Error\x20Starting\x20File\x20Download\x20:\x20','auth-pass','path','total_size','zIndex','4517790EjMJyj','Incorrect\x20password.\x20You\x20have\x20','mousemove','error','opacity','setItem','19348yslGkb','innerHTML','Progress\x20:\x20','ceil','ellipsis','filenamex','json','\x20attempts\x20left.','addEventListener','push','bg-blur','alignItems','flexWrap','loginAttempts','none','size','marginBottom','auth_home_path','display','running','flexGrow','All\x20remote\x20uploads\x20completed!','button','upload','selected-item','maxWidth','Status:\x20Uploading\x20To\x20Telegram\x20Server','status','Pending-upload-list','files','block','innerText','nowrap','span','now','total','jsondata:\x20','pass-login','querySelectorAll','Error\x20Getting\x20File\x20Info\x20:\x20','/share','File\x20size\x20exceeds\x20','new-url-upload','flex','15JjqFSy','lengthComputable','border','Filename:\x20','POST','name','loaded','location','/api/getUploadProgress','Check\x20your\x20inbox!','forEach','input','redirect','new-folder-name','32kfZhvv','Filesize:\x20','You\x20are\x20locked\x20out.\x20Please\x20try\x20again\x20later.','1px\x20solid\x20#ccc','no-cache,\x20no-store,\x20must-revalidate','Progress\x20:\x20100%','no-cache','onerror','chunkIndex','value','class','Error:\x20','0.1','width','Progress\x20:\x200%','Error\x20Getting\x20Folder\x20Share\x20Auth','4kWTwiX','Expires','filter','upload-status','center','message','10px','open','keypresses','.directory\x20tbody\x20tr','click','filename','save\x20progress','textContent','marginRight','appendChild','reload','password','/?path=/share_','upload-filesize','log','whiteSpace','mouseMovements','keypress','947016bAlFxM','\x20failed\x20to\x20upload','/api/createNewFolder','append','📁\x20','file-uploader','fileInput','293041GDmazF','style','Status:\x20Processing\x20File\x20On\x20Backend\x20Server','getElementById','getItem','remote-url','shift','\x20GB\x20limit','lockoutTime','40896yPzEME','/api/getDirectory','auth','file_url','length','78786wzQRLZ','td:last-child','3613973BfBerC','404\x20Current\x20Directory\x20Not\x20Found','Status:\x20Uploading\x20To\x20Backend\x20Server','pending-heading','stringify','.sidebar-menu','completed','data','touchMovements','file_name','/api/upload','upload-percent','5px','clicks','href','&auth=','space-between','hidden','unselected-item','toFixed','querySelector','45ehiLhT','onclick','Failed\x20to\x20download\x20file\x20from\x20URL\x20to\x20backend\x20server','/api/startFileDownloadFromUrl','setRequestHeader','change','clientY','Downloading','min','slice','pending-files'];_0x2b3b=function(){return _0x1564c6;};return _0x2b3b();}function hideMoreColumnIfSharedPath(){const _0x2f81d1=_0x5f2041;if(getCurrentPath()['startsWith'](_0x2f81d1(0xed))){const _0x15ce8f=document['querySelector']('.directory\x20th:last-child');_0x15ce8f&&(_0x15ce8f[_0x2f81d1(0x12f)][_0x2f81d1(0x183)]=_0x2f81d1(0x17f));const _0x501bc0=document[_0x2f81d1(0xeb)](_0x2f81d1(0x118));_0x501bc0[_0x2f81d1(0xfb)](_0x1380e9=>{const _0x11fa07=_0x2f81d1,_0x13c429=_0x1380e9[_0x11fa07(0x152)](_0x11fa07(0x13d));_0x13c429&&(_0x13c429[_0x11fa07(0x12f)]['display']='none');});}}async function getCurrentDirectory(){const _0xe26ec0=_0x5f2041;let _0x3ee6a9=getCurrentPath();if(_0x3ee6a9===_0xe26ec0(0xfd))return;try{const _0x2a5c3b=getFolderAuthFromPath(),_0x3c28ff=getFolderQueryFromPath(),_0x1b036c={'path':_0x3ee6a9,'auth':_0x2a5c3b,'query':_0x3c28ff},_0x245f63=await postJson(_0xe26ec0(0x138),_0x1b036c);if(_0x245f63[_0xe26ec0(0xe0)]==='ok'){if(getCurrentPath()['startsWith'](_0xe26ec0(0xed))){const _0x4ec513=document[_0xe26ec0(0x152)](_0xe26ec0(0x143))[_0xe26ec0(0x160)]('a');removeSlash(_0x245f63['auth_home_path'])===removeSlash(_0x3ee6a9['split']('_')[0x1])?_0x4ec513[0x0]['setAttribute'](_0xe26ec0(0x109),_0xe26ec0(0xdd)):_0x4ec513[0x0]['setAttribute'](_0xe26ec0(0x109),_0xe26ec0(0x150)),_0x4ec513[0x0][_0xe26ec0(0x14c)]='/?path=/share_'+removeSlash(_0x245f63[_0xe26ec0(0x182)])+'&auth='+_0x2a5c3b,hideMoreColumnIfSharedPath(),console['log'](_0xe26ec0(0x121)+removeSlash(_0x245f63['auth_home_path'])+_0xe26ec0(0x14d)+_0x2a5c3b);}console[_0xe26ec0(0x123)](_0x245f63),showDirectory(_0x245f63[_0xe26ec0(0x145)]);}else alert('404\x20Current\x20Directory\x20Not\x20Found');}catch(_0x80a13d){alert(_0xe26ec0(0x13f));}}async function createNewFolder(){const _0xc2caa8=_0x5f2041,_0x26320d=document['getElementById'](_0xc2caa8(0xfe))['value'],_0x2aa7ce=getCurrentPath();if(_0x2aa7ce===_0xc2caa8(0xfd))return;if(_0x26320d[_0xc2caa8(0x13b)]>0x0){const _0x187b5a={'name':_0x26320d,'path':_0x2aa7ce};try{const _0x38c29e=await postJson(_0xc2caa8(0x129),_0x187b5a);_0x38c29e['status']==='ok'?window['location'][_0xc2caa8(0x11f)]():alert(_0x38c29e[_0xc2caa8(0xe0)]);}catch(_0x59241f){alert('Error\x20Creating\x20Folder');}}else alert('Folder\x20Name\x20Cannot\x20Be\x20Empty');}async function getFolderShareAuth(_0xc09c2d){const _0x1b2454=_0x5f2041,_0x281c41={'path':_0xc09c2d},_0x81b80c=await postJson('/api/getFolderShareAuth',_0x281c41);if(_0x81b80c['status']==='ok')return _0x81b80c[_0x1b2454(0x139)];else alert(_0x1b2454(0x10e));}const MAX_FILE_SIZE=2126008811.52,fileInput=document[_0x5f2041(0x131)](_0x5f2041(0x12d)),progressBar=document[_0x5f2041(0x131)]('progress-bar'),cancelButton=document[_0x5f2041(0x131)]('cancel-file-upload'),uploadPercent=document['getElementById'](_0x5f2041(0x149));let uploadQueue=[],activeUploads=0x0;const maxConcurrentUploads=0x1;let currentUploadingFile=null;fileInput[_0x5f2041(0x179)](_0x5f2041(0x158),async _0x57979e=>{const _0x36245e=_0x5f2041,_0x35b9e1=fileInput[_0x36245e(0xe2)];for(const _0x4de7a7 of _0x35b9e1){if(_0x4de7a7['size']>MAX_FILE_SIZE){alert(_0x36245e(0xee)+(MAX_FILE_SIZE/(0x400*0x400*0x400))[_0x36245e(0x151)](0x2)+'\x20GB\x20limit');return;}uploadQueue[_0x36245e(0x17a)](_0x4de7a7);}processUploadQueue(),renderPendingUploadList();});function processUploadQueue(){const _0x60c0bf=_0x5f2041;if(activeUploads<maxConcurrentUploads&&uploadQueue[_0x60c0bf(0x13b)]>0x0){const _0x3e4bed=uploadQueue[_0x60c0bf(0x134)]();currentUploadingFile=_0x3e4bed,uploadFile(_0x3e4bed);}else activeUploads===0x0&&uploadQueue[_0x60c0bf(0x13b)]===0x0&&(alert('All\x20uploads\x20completed\x20boss!\x20😎'),window[_0x60c0bf(0xf8)][_0x60c0bf(0x11f)]());renderPendingUploadList();}function renderPendingUploadList(){const _0xd1282f=_0x5f2041,_0x5e5326=document[_0xd1282f(0x131)](_0xd1282f(0x15d)),_0x28f246=document[_0xd1282f(0x131)](_0xd1282f(0x141)),_0x2d8b2b=document[_0xd1282f(0x131)](_0xd1282f(0xe1));_0x5e5326['innerHTML']='';const _0x13db61=uploadQueue[_0xd1282f(0x111)](_0x54ad86=>_0x54ad86!==currentUploadingFile);_0x13db61[_0xd1282f(0x13b)]>0x0?(_0x28f246['style'][_0xd1282f(0x183)]=_0xd1282f(0xe3),_0x5e5326[_0xd1282f(0x12f)][_0xd1282f(0x183)]=_0xd1282f(0xe3),_0x2d8b2b['style'][_0xd1282f(0xf3)]=_0xd1282f(0x102)):(_0x28f246[_0xd1282f(0x12f)][_0xd1282f(0x183)]=_0xd1282f(0x17f),_0x5e5326['style'][_0xd1282f(0x183)]=_0xd1282f(0x17f),_0x2d8b2b[_0xd1282f(0x12f)]['border']=_0xd1282f(0x17f)),_0x13db61[_0xd1282f(0xfb)](_0x9d8eaf=>{const _0x57658c=_0xd1282f,_0x158ee7=document['createElement']('li');_0x158ee7[_0x57658c(0x12f)]['display']=_0x57658c(0xf0),_0x158ee7[_0x57658c(0x12f)]['justifyContent']=_0x57658c(0x14e),_0x158ee7[_0x57658c(0x12f)]['alignItems']=_0x57658c(0x113),_0x158ee7[_0x57658c(0x12f)][_0x57658c(0x181)]=_0x57658c(0x14a),_0x158ee7[_0x57658c(0x12f)][_0x57658c(0x17d)]=_0x57658c(0xe5);const _0x57afec=document[_0x57658c(0x15e)](_0x57658c(0xe6));_0x57afec[_0x57658c(0x11c)]=_0x57658c(0x12b)+_0x9d8eaf[_0x57658c(0xf6)],_0x57afec[_0x57658c(0x12f)][_0x57658c(0x15f)]=_0x57658c(0x14f),_0x57afec[_0x57658c(0x12f)]['textOverflow']=_0x57658c(0x175),_0x57afec[_0x57658c(0x12f)][_0x57658c(0x124)]=_0x57658c(0xe5),_0x57afec['style'][_0x57658c(0x185)]='1',_0x57afec['style'][_0x57658c(0x11d)]='10px',_0x57afec[_0x57658c(0x12f)][_0x57658c(0xde)]=_0x57658c(0x161);const _0x33c209=document['createElement'](_0x57658c(0xdb));_0x33c209[_0x57658c(0x11c)]='❌',_0x33c209[_0x57658c(0x154)]=()=>removeFilex(_0x9d8eaf),_0x158ee7['appendChild'](_0x57afec),_0x158ee7[_0x57658c(0x11e)](_0x33c209),_0x5e5326['appendChild'](_0x158ee7);});}function removeFilex(_0x1a27a3){const _0x13518e=_0x5f2041;uploadQueue=uploadQueue[_0x13518e(0x111)](_0x3f046d=>_0x3f046d[_0x13518e(0xf6)]!==_0x1a27a3[_0x13518e(0xf6)]),renderPendingUploadList();}async function uploadFile(_0x2f9869){const _0x2040e6=_0x5f2041,_0x297f65=0x32*0x400*0x400,_0x333867=Math[_0x2040e6(0x174)](_0x2f9869[_0x2040e6(0x180)]/_0x297f65);activeUploads++,document[_0x2040e6(0x131)](_0x2040e6(0x17b))[_0x2040e6(0x12f)][_0x2040e6(0x16a)]='2',document[_0x2040e6(0x131)](_0x2040e6(0x17b))[_0x2040e6(0x12f)][_0x2040e6(0x16f)]='0.1',document[_0x2040e6(0x131)](_0x2040e6(0x12c))[_0x2040e6(0x12f)][_0x2040e6(0x16a)]='3',document['getElementById'](_0x2040e6(0x12c))[_0x2040e6(0x12f)][_0x2040e6(0x16f)]='1',document[_0x2040e6(0x131)]('upload-filename')[_0x2040e6(0xe4)]=_0x2040e6(0xf4)+_0x2f9869[_0x2040e6(0xf6)],document[_0x2040e6(0x131)]('upload-filesize')[_0x2040e6(0xe4)]=_0x2040e6(0x100)+(_0x2f9869['size']/(0x400*0x400))[_0x2040e6(0x151)](0x2)+_0x2040e6(0x163),document[_0x2040e6(0x131)]('upload-status')[_0x2040e6(0xe4)]=_0x2040e6(0x140);const _0x409634=getRandomId(),_0x16b348=getCurrentPath(),_0x286101=getPassword(),_0x39584d=_0x2f9869[_0x2040e6(0xf6)];for(let _0xfb8fce=0x0;_0xfb8fce<_0x333867;_0xfb8fce++){const _0x1690a8=_0xfb8fce*_0x297f65,_0x5f4d65=Math[_0x2040e6(0x15b)](_0x2f9869[_0x2040e6(0x180)],_0x1690a8+_0x297f65),_0x561424=_0x2f9869[_0x2040e6(0x15c)](_0x1690a8,_0x5f4d65),_0xaae6cb=new FormData();_0xaae6cb['append']('file',_0x561424),_0xaae6cb[_0x2040e6(0x12a)](_0x2040e6(0x168),_0x16b348),_0xaae6cb['append'](_0x2040e6(0x120),_0x286101),_0xaae6cb['append']('id',_0x409634),_0xaae6cb[_0x2040e6(0x12a)](_0x2040e6(0x107),_0xfb8fce),_0xaae6cb[_0x2040e6(0x12a)]('totalChunks',_0x333867),_0xaae6cb[_0x2040e6(0x12a)](_0x2040e6(0x11a),_0x2f9869['name']),_0xaae6cb[_0x2040e6(0x12a)](_0x2040e6(0x176),_0x39584d),_0xaae6cb['append'](_0x2040e6(0x169),_0x2f9869[_0x2040e6(0x180)]);const _0x58c74a=new XMLHttpRequest();_0x58c74a[_0x2040e6(0x116)](_0x2040e6(0xf5),_0x2040e6(0x148),!![]),_0x58c74a[_0x2040e6(0x157)]('Cache-Control',_0x2040e6(0x103)),_0x58c74a[_0x2040e6(0x157)](_0x2040e6(0x162),_0x2040e6(0x105)),_0x58c74a[_0x2040e6(0x157)](_0x2040e6(0x110),'0'),_0x58c74a[_0x2040e6(0xdc)]['addEventListener']('progress',_0x3e8d4e=>{const _0x313277=_0x2040e6;if(_0x3e8d4e[_0x313277(0xf2)]){const _0x1051e4=(_0xfb8fce+_0x3e8d4e[_0x313277(0xf7)]/_0x3e8d4e[_0x313277(0xe8)])/_0x333867*0x64;progressBar[_0x313277(0x12f)][_0x313277(0x10c)]=_0x1051e4+'%',uploadPercent[_0x313277(0xe4)]='Progress:\x20'+_0x1051e4['toFixed'](0x2)+'%';}}),await new Promise((_0x56d9b3,_0x59287c)=>{const _0x42e3f6=_0x2040e6;_0x58c74a['onload']=()=>{const _0x1fbbd7=_0x25ed;_0x58c74a[_0x1fbbd7(0xe0)]===0xc8?_0x56d9b3():_0x59287c('Chunk\x20'+(_0xfb8fce+0x1)+_0x1fbbd7(0x128));},_0x58c74a[_0x42e3f6(0x106)]=()=>_0x59287c(_0x42e3f6(0x164)+(_0xfb8fce+0x1)),_0x58c74a['send'](_0xaae6cb);});}activeUploads--,currentUploadingFile=null,processUploadQueue();}cancelButton[_0x5f2041(0x179)](_0x5f2041(0x119),()=>{const _0x47af35=_0x5f2041;alert('Upload\x20canceled'),window[_0x47af35(0xf8)]['reload']();});async function updateSaveProgress(_0x306d44){const _0x5df7f3=_0x5f2041;console[_0x5df7f3(0x123)](_0x5df7f3(0x11b)),progressBar[_0x5df7f3(0x12f)][_0x5df7f3(0x10c)]='0%',uploadPercent['innerText']=_0x5df7f3(0x10d),document[_0x5df7f3(0x131)](_0x5df7f3(0x112))[_0x5df7f3(0xe4)]=_0x5df7f3(0x130);const _0x15feed=setInterval(async()=>{const _0x5f5d8b=_0x5df7f3,_0x2f671c=await postJson('/api/getSaveProgress',{'id':_0x306d44}),_0x38b3d2=_0x2f671c[_0x5f5d8b(0x145)];if(_0x38b3d2[0x0]===_0x5f5d8b(0x184)){const _0x5f1d75=_0x38b3d2[0x1],_0x13c46d=_0x38b3d2[0x2];document[_0x5f5d8b(0x131)]('upload-filesize')['innerText']=_0x5f5d8b(0x100)+(_0x13c46d/(0x400*0x400))[_0x5f5d8b(0x151)](0x2)+_0x5f5d8b(0x163);const _0x32abf5=_0x5f1d75/_0x13c46d*0x64;progressBar[_0x5f5d8b(0x12f)][_0x5f5d8b(0x10c)]=_0x32abf5+'%',uploadPercent[_0x5f5d8b(0xe4)]='Progress\x20:\x20'+_0x32abf5[_0x5f5d8b(0x151)](0x2)+'%';}else _0x38b3d2[0x0]===_0x5f5d8b(0x144)&&(clearInterval(_0x15feed),uploadPercent[_0x5f5d8b(0xe4)]=_0x5f5d8b(0x104),progressBar['style'][_0x5f5d8b(0x10c)]='100%',await handleUpload2(_0x306d44));},0xbb8);}async function handleUpload2(_0x1beb3d){const _0xd5778c=_0x5f2041;document[_0xd5778c(0x131)](_0xd5778c(0x112))[_0xd5778c(0xe4)]=_0xd5778c(0xdf),progressBar[_0xd5778c(0x12f)]['width']='0%',uploadPercent['innerText']='Progress\x20:\x200%';const _0x5acb41=setInterval(async()=>{const _0x133e7c=_0xd5778c,_0xa8d436=await postJson('/api/getUploadProgress',{'id':_0x1beb3d}),_0x31992e=_0xa8d436[_0x133e7c(0x145)];if(_0x31992e[0x0]===_0x133e7c(0x184)){const _0xf3670c=_0x31992e[0x1],_0x455f5a=_0x31992e[0x2];document[_0x133e7c(0x131)](_0x133e7c(0x122))['innerText']=_0x133e7c(0x100)+(_0x455f5a/(0x400*0x400))['toFixed'](0x2)+'\x20MB';let _0x130c26;_0x455f5a===0x0?_0x130c26=0x0:_0x130c26=_0xf3670c/_0x455f5a*0x64,progressBar[_0x133e7c(0x12f)][_0x133e7c(0x10c)]=_0x130c26+'%',uploadPercent[_0x133e7c(0xe4)]=_0x133e7c(0x173)+_0x130c26[_0x133e7c(0x151)](0x2)+'%';}else _0x31992e[0x0]===_0x133e7c(0x144)&&(clearInterval(_0x5acb41),activeUploads--,processUploadQueue());},0xbb8);}let remoteUploadQueue=[],activeRemoteUploads=0x0;const maxRemoteConcurrentUploads=0x1;let currentUploadingRemoteFile=null;async function handleUpload3(_0x4077a1){const _0x4a35e7=_0x5f2041;console['log'](_0x4077a1),document[_0x4a35e7(0x131)](_0x4a35e7(0x112))[_0x4a35e7(0xe4)]='Status:\x20Uploading\x20To\x20Telegram\x20Server',progressBar[_0x4a35e7(0x12f)][_0x4a35e7(0x10c)]='0%',uploadPercent[_0x4a35e7(0xe4)]=_0x4a35e7(0x10d);const _0x5e9e9d=setInterval(async()=>{const _0x3fb96a=_0x4a35e7,_0x522a25=await postJson(_0x3fb96a(0xf9),{'id':_0x4077a1}),_0x383479=_0x522a25[_0x3fb96a(0x145)];if(_0x383479[0x0]==='running'){const _0x32ad33=_0x383479[0x1],_0x9a0eae=_0x383479[0x2];document[_0x3fb96a(0x131)](_0x3fb96a(0x122))[_0x3fb96a(0xe4)]=_0x3fb96a(0x100)+(_0x9a0eae/(0x400*0x400))[_0x3fb96a(0x151)](0x2)+_0x3fb96a(0x163);let _0xf9f0f2;_0x9a0eae===0x0?_0xf9f0f2=0x0:_0xf9f0f2=_0x32ad33/_0x9a0eae*0x64,progressBar['style']['width']=_0xf9f0f2+'%',uploadPercent[_0x3fb96a(0xe4)]='Progress\x20:\x20'+_0xf9f0f2[_0x3fb96a(0x151)](0x2)+'%';}else _0x383479[0x0]===_0x3fb96a(0x144)&&(clearInterval(_0x5e9e9d),activeRemoteUploads--,processRemoteUploadQueue());},0xbb8);}async function get_file_info_from_url(_0x1032ea){const _0x48ac4c=_0x5f2041,_0x8d9098={'url':_0x1032ea},_0x5eeb97=await postJson('/api/getFileInfoFromUrl',_0x8d9098);if(_0x5eeb97['status']==='ok'){return _0x5eeb97['data'];console['log'](_0x48ac4c(0xe9),_0x5eeb97[_0x48ac4c(0x145)]);}else throw new Error(_0x48ac4c(0xec)+_0x5eeb97['status']);}async function start_file_download_from_url(_0x2312df,_0x1f763d,_0x3cd2c8=!![]){const _0x1205b9=_0x5f2041,_0x265da7={'url':_0x2312df,'path':getCurrentPath(),'filename':_0x1f763d,'singleThreaded':_0x3cd2c8},_0x40b0f8=await postJson(_0x1205b9(0x156),_0x265da7);if(_0x40b0f8[_0x1205b9(0xe0)]==='ok')return _0x40b0f8['id'];else throw new Error(_0x1205b9(0x166)+_0x40b0f8[_0x1205b9(0xe0)]);}function _0x25ed(_0x598fb7,_0xd4ca78){const _0x2b3bac=_0x2b3b();return _0x25ed=function(_0x25edd9,_0x46f025){_0x25edd9=_0x25edd9-0xdb;let _0x3c80d0=_0x2b3bac[_0x25edd9];return _0x3c80d0;},_0x25ed(_0x598fb7,_0xd4ca78);}async function Start_URL_Upload(){const _0x13c5bd=_0x5f2041;try{document['getElementById'](_0x13c5bd(0xef))[_0x13c5bd(0x12f)]['opacity']='0',setTimeout(()=>{const _0x32bcd9=_0x13c5bd;document[_0x32bcd9(0x131)]('new-url-upload')[_0x32bcd9(0x12f)]['zIndex']='-1';},0x12c);const _0x973862=document[_0x13c5bd(0x131)](_0x13c5bd(0x133))[_0x13c5bd(0x108)],_0x2203fd=!![],_0x4e91d9=await get_file_info_from_url(_0x973862);for(let _0x5c9646=0x0;_0x5c9646<_0x4e91d9[_0x13c5bd(0x13b)];_0x5c9646++){const _0x1d6c38=_0x4e91d9[_0x5c9646][_0x13c5bd(0x13a)],_0x5b8557=_0x4e91d9[_0x5c9646][_0x13c5bd(0x147)],_0x3c7df3=_0x4e91d9[_0x5c9646]['file_size'];if(_0x3c7df3>MAX_FILE_SIZE)throw new Error(_0x13c5bd(0xee)+(MAX_FILE_SIZE/(0x400*0x400*0x400))[_0x13c5bd(0x151)](0x2)+_0x13c5bd(0x135));remoteUploadQueue[_0x13c5bd(0x17a)]({'file_urlx':_0x1d6c38,'file_name':_0x5b8557,'file_size':_0x3c7df3,'singleThreaded':_0x2203fd});}processRemoteUploadQueue(),renderPendingRemoteUploadList();}catch(_0x45e440){alert(_0x13c5bd(0x10a)+_0x45e440[_0x13c5bd(0x114)]),window[_0x13c5bd(0xf8)][_0x13c5bd(0x11f)]();}}function processRemoteUploadQueue(){const _0x36bc73=_0x5f2041;if(activeRemoteUploads<maxRemoteConcurrentUploads&&remoteUploadQueue[_0x36bc73(0x13b)]>0x0){const _0x486893=remoteUploadQueue[_0x36bc73(0x134)]();currentUploadingRemoteFile=_0x486893,download_progress_updater(_0x486893);}else activeRemoteUploads===0x0&&remoteUploadQueue['length']===0x0&&(alert(_0x36bc73(0x186)),window[_0x36bc73(0xf8)]['reload']());renderPendingRemoteUploadList();}function renderPendingRemoteUploadList(){const _0x36d9d8=_0x5f2041,_0x460b0f=document[_0x36d9d8(0x131)](_0x36d9d8(0x15d)),_0x5225f5=document['getElementById']('pending-heading'),_0x49d75c=document['getElementById']('Pending-upload-list');_0x460b0f[_0x36d9d8(0x172)]='';const _0x44f5de=remoteUploadQueue['filter'](_0x5d729d=>_0x5d729d!==currentUploadingRemoteFile);_0x44f5de[_0x36d9d8(0x13b)]>0x0?(_0x5225f5['style'][_0x36d9d8(0x183)]=_0x36d9d8(0xe3),_0x460b0f[_0x36d9d8(0x12f)]['display']=_0x36d9d8(0xe3),_0x49d75c[_0x36d9d8(0x12f)]['border']=_0x36d9d8(0x102)):(_0x5225f5[_0x36d9d8(0x12f)][_0x36d9d8(0x183)]='none',_0x460b0f[_0x36d9d8(0x12f)][_0x36d9d8(0x183)]=_0x36d9d8(0x17f),_0x49d75c[_0x36d9d8(0x12f)]['border']='none'),_0x44f5de[_0x36d9d8(0xfb)](_0x3975a5=>{const _0x14029=_0x36d9d8,_0x1971e3=document[_0x14029(0x15e)]('li');_0x1971e3['style'][_0x14029(0x183)]=_0x14029(0xf0),_0x1971e3[_0x14029(0x12f)]['justifyContent']='space-between',_0x1971e3['style'][_0x14029(0x17c)]=_0x14029(0x113),_0x1971e3['style'][_0x14029(0x181)]=_0x14029(0x14a),_0x1971e3[_0x14029(0x12f)]['flexWrap']=_0x14029(0xe5);const _0x47d53a=document['createElement'](_0x14029(0xe6));_0x47d53a[_0x14029(0x11c)]=_0x14029(0x12b)+_0x3975a5['file_name'],_0x47d53a[_0x14029(0x12f)][_0x14029(0x15f)]='hidden',_0x47d53a[_0x14029(0x12f)]['textOverflow']=_0x14029(0x175),_0x47d53a[_0x14029(0x12f)][_0x14029(0x124)]=_0x14029(0xe5),_0x47d53a[_0x14029(0x12f)][_0x14029(0x185)]='1',_0x47d53a['style'][_0x14029(0x11d)]=_0x14029(0x115),_0x47d53a[_0x14029(0x12f)][_0x14029(0xde)]=_0x14029(0x161);const _0x48b276=document[_0x14029(0x15e)](_0x14029(0xdb));_0x48b276[_0x14029(0x11c)]='❌',_0x48b276['onclick']=()=>removeFile(_0x3975a5),_0x1971e3[_0x14029(0x11e)](_0x47d53a),_0x1971e3[_0x14029(0x11e)](_0x48b276),_0x460b0f[_0x14029(0x11e)](_0x1971e3);});}function removeFile(_0x44da3d){const _0x202456=_0x5f2041;remoteUploadQueue=remoteUploadQueue[_0x202456(0x111)](_0x5932d7=>_0x5932d7[_0x202456(0x147)]!==_0x44da3d['file_name']),renderPendingRemoteUploadList();}async function download_progress_updater({file_urlx:_0x517ed8,file_name:_0x4b7c41,file_size:_0xa026a5,singleThreaded:singleThreaded=!![]}){const _0x76b53c=_0x5f2041;document[_0x76b53c(0x131)]('upload-filename')[_0x76b53c(0xe4)]='Filename:\x20'+_0x4b7c41,document[_0x76b53c(0x131)]('upload-filesize')['innerText']='Filesize:\x20'+(_0xa026a5/(0x400*0x400))[_0x76b53c(0x151)](0x2)+'\x20MB',document[_0x76b53c(0x131)]('upload-status')['innerText']='Status:\x20Downloading\x20File\x20From\x20Url\x20To\x20Backend\x20Server',uploadPercent[_0x76b53c(0xe4)]='Progress\x20:\x200%',progressBar[_0x76b53c(0x12f)][_0x76b53c(0x10c)]='0%';const _0x135673=await start_file_download_from_url(_0x517ed8,_0x4b7c41,singleThreaded);document[_0x76b53c(0x131)](_0x76b53c(0x17b))[_0x76b53c(0x12f)][_0x76b53c(0x16a)]='2',document['getElementById'](_0x76b53c(0x17b))[_0x76b53c(0x12f)][_0x76b53c(0x16f)]=_0x76b53c(0x10b),document[_0x76b53c(0x131)](_0x76b53c(0x12c))[_0x76b53c(0x12f)][_0x76b53c(0x16a)]='3',document[_0x76b53c(0x131)]('file-uploader')[_0x76b53c(0x12f)][_0x76b53c(0x16f)]='1';const _0x501afb=setInterval(async()=>{const _0x5092d9=_0x76b53c,_0x437861=await postJson('/api/getFileDownloadProgress',{'id':_0x135673}),_0x268e05=_0x437861[_0x5092d9(0x145)];if(_0x268e05[0x0]===_0x5092d9(0x16e))clearInterval(_0x501afb),alert(_0x5092d9(0x155)),window[_0x5092d9(0xf8)][_0x5092d9(0x11f)]();else{if(_0x268e05[0x0]===_0x5092d9(0x144))clearInterval(_0x501afb),uploadPercent['innerText']='Progress\x20:\x20100%',progressBar[_0x5092d9(0x12f)][_0x5092d9(0x10c)]='100%',await handleUpload3(_0x135673),activeRemoteUploads++;else{const _0xc9cec6=_0x268e05[0x1],_0xeafa4e=_0x268e05[0x2],_0x499cdf=_0xc9cec6/_0xeafa4e*0x64;progressBar[_0x5092d9(0x12f)][_0x5092d9(0x10c)]=_0x499cdf+'%',uploadPercent['innerText']=_0x5092d9(0x173)+_0x499cdf[_0x5092d9(0x151)](0x2)+'%',_0x268e05[0x0]===_0x5092d9(0x15a)?document[_0x5092d9(0x131)](_0x5092d9(0x112))[_0x5092d9(0xe4)]='Status:\x20Downloading\x20File\x20From\x20Url\x20To\x20Backend\x20Server':document[_0x5092d9(0x131)]('upload-status')[_0x5092d9(0xe4)]='Status:\x20'+_0x268e05[0x0];}}},0xbb8);}
+
+// const { JSDOM } = require("jsdom");
+
+
+// Api Functions
+async function postJson(url, data) {
+    data['password'] = getPassword();
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    return await response.json();
+}
+
+//let attempts = 0; // Declare attempts outside the event listener
+const maxAttempts = 5;
+const lockoutDuration = 60 * 60 * 1000; // 12 hours in milliseconds
+const attemptsKey = "loginAttempts";
+const lockoutTimeKey = "lockoutTime";
+// Interaction tracking for invisible CAPTCHA
+
+
+const interactionData = {
+    mouseMovements: [],
+    clicks: 0,
+    keypresses: 0,
+    touchMovements: [], // New property for touch interactions
+};
+
+function initializeAttempts() {
+    const storedAttempts = localStorage.getItem(attemptsKey);
+    const lockoutTime = localStorage.getItem(lockoutTimeKey);
+
+    if (lockoutTime && Date.now() >= Number(lockoutTime)) {
+        // Reset attempts if the lockout period has expired
+        localStorage.removeItem(attemptsKey);
+        localStorage.removeItem(lockoutTimeKey);
+        return 0;
+    }
+
+    return storedAttempts ? Number(storedAttempts) : 0;
+}
+
+let attempts = initializeAttempts();
+
+// Update attempts in localStorage
+function saveAttempts(attempts) {
+    localStorage.setItem(attemptsKey, attempts);
+
+    if (attempts >= maxAttempts) {
+        // Set lockout expiration time
+        localStorage.setItem(lockoutTimeKey, Date.now() + lockoutDuration);
+    }
+}
+// Track mouse movements
+document.addEventListener("mousemove", (e) => {
+    interactionData.mouseMovements.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+});
+
+// Track button clicks
+document.getElementById("pass-login").addEventListener("click", () => {
+    interactionData.clicks++;
+});
+
+document.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0];
+    interactionData.touchMovements.push({ x: touch.clientX, y: touch.clientY, time: Date.now() });
+});
+
+document.getElementById("auth-pass").addEventListener("input", () => {
+    interactionData.keypresses++;
+});
+
+// Track keypresses
+document.getElementById("auth-pass").addEventListener("keypress", () => {
+    interactionData.keypresses++;
+});
+
+document.getElementById('pass-login').addEventListener('click', async () => {
+    const loginButton = document.getElementById("pass-login");
+    const password = document.getElementById('auth-pass').value;
+    const errorMessage = document.getElementById('error-message');
+ // Check if user is locked out
+    const lockoutTime = localStorage.getItem(lockoutTimeKey);
+    if (lockoutTime && Date.now() < Number(lockoutTime)) {
+        errorMessage.textContent = "You are locked out. Please try again later.";
+        errorMessage.style.display = "block";
+        return;
+    }
+    
+    if (!password) {
+        alert('Please enter your password.');
+        return;
+    }
+
+    const data = { 
+        pass: password,
+        interactionData: interactionData, // Send interaction data to backend
+    };
+
+    const json = await postJson('/api/checkPassword', data);
+
+    //const json = await response.json();
+
+    if (json.status === 'ok') {
+        alert('Check your inbox!');
+        window.location.reload();
+    } else {
+        attempts++;
+        saveAttempts(attempts);
+        if (attempts >= maxAttempts) {
+            loginButton.disabled = true;
+            errorMessage.style.display = "block";
+        } else {
+            alert(`Incorrect password. You have ${maxAttempts - attempts} attempts left.`);
+        }
+    }
+
+    // Clear the password field
+    document.getElementById('auth-pass').value = "";
+});
+
+
+function hideMoreColumnIfSharedPath() {
+    // Check if the current path starts with '/share'
+    if (getCurrentPath().startsWith('/share')) {
+        // Select the "More" column header
+        const moreColumnHeader = document.querySelector('.directory th:last-child');
+        
+        // Hide the "More" header cell
+        if (moreColumnHeader) {
+            moreColumnHeader.style.display = 'none';
+        }
+
+        // Select all cells in the "More" column
+        const rows = document.querySelectorAll('.directory tbody tr');
+        rows.forEach(row => {
+            const moreColumnCell = row.querySelector('td:last-child');
+            if (moreColumnCell) {
+                moreColumnCell.style.display = 'none';
+            }
+        });
+    }
+}
+async function getCurrentDirectory() {
+    let path = getCurrentPath();
+    if (path === 'redirect') {
+        return;
+    }
+    try {
+        const auth = getFolderAuthFromPath();
+        const query = getFolderQueryFromPath();
+        const data = { 'path': path, 'auth': auth, 'query': query };
+        const json = await postJson('/api/getDirectory', data);
+
+        if (json.status === 'ok') {
+            if (getCurrentPath().startsWith('/share')) {
+                const sections = document.querySelector('.sidebar-menu').getElementsByTagName('a');
+
+                if (removeSlash(json['auth_home_path']) === removeSlash(path.split('_')[1])) {
+                    sections[0].setAttribute('class', 'selected-item');
+                } else {
+                    sections[0].setAttribute('class', 'unselected-item');
+                }
+                sections[0].href = `/?path=/share_${removeSlash(json['auth_home_path'])}&auth=${auth}`;
+                hideMoreColumnIfSharedPath(); 
+                console.log(`/?path=/share_${removeSlash(json['auth_home_path'])}&auth=${auth}`)
+            }// else if (getCurrentPath().includes('/search_')) {
+                //const sidebarmenu = document.querySelector('.sidebar-menu');
+              //  if (sidebarmenu) {
+                   // sidebarmenu.style.display = 'none';
+                //}
+          //  }
+            console.log(json)
+            showDirectory(json['data']);
+        } else {
+            alert('404 Current Directory Not Found');
+        }
+    }
+    catch (err) {
+        alert('404 Current Directory Not Found');
+    }
+}
+
+async function createNewFolder() {
+    const folderName = document.getElementById('new-folder-name').value;
+    const path = getCurrentPath();
+    if (path === 'redirect') {
+        return;
+    }
+    if (folderName.length > 0) {
+        const data = {
+            'name': folderName,
+            'path': path
+        };
+        try {
+            const json = await postJson('/api/createNewFolder', data);
+
+            if (json.status === 'ok') {
+                window.location.reload();
+            } else {
+                alert(json.status);
+            }
+        }
+        catch (err) {
+            alert('Error Creating Folder');
+        }
+    } else {
+        alert('Folder Name Cannot Be Empty');
+    }
+}
+
+async function getFolderShareAuth(path) {
+    const data = { 'path': path };
+    const json = await postJson('/api/getFolderShareAuth', data);
+    if (json.status === 'ok') {
+        return json.auth;
+    } else {
+        alert('Error Getting Folder Share Auth');
+    }
+}
+
+// File Uploader Start
+// File Uploader Start
+const MAX_FILE_SIZE = 2126008811.52; // Will be replaced by the python
+
+const fileInput = document.getElementById('fileInput');
+const progressBar = document.getElementById('progress-bar');
+const cancelButton = document.getElementById('cancel-file-upload');
+const uploadPercent = document.getElementById('upload-percent');
+let uploadQueue = []; // Queue for files to upload
+let activeUploads = 0; // Counter for active uploads
+const maxConcurrentUploads = 1; // Limit concurrent uploads to 1
+
+let currentUploadingFile = null; // Track the file that is being uploaded
+
+fileInput.addEventListener('change', async (e) => {
+    const files = fileInput.files;
+
+    // Validate file sizes and add them to the queue
+    for (const file of files) {
+        if (file.size > MAX_FILE_SIZE) {
+            alert(`File size exceeds ${(MAX_FILE_SIZE / (1024 * 1024 * 1024)).toFixed(2)} GB limit`);
+            return;
+        }
+        uploadQueue.push(file); // Add valid files to the queue
+    }
+
+    // Start processing uploads
+    processUploadQueue();
+    renderPendingUploadList(); // Render pending uploads excluding the currently uploading file
+});
+
+function processUploadQueue() {
+    if (activeUploads < maxConcurrentUploads && uploadQueue.length > 0) {
+        const file = uploadQueue.shift(); // Get the next file from the queue
+        currentUploadingFile = file; // Mark the current file as uploading
+        uploadFile(file);
+    } else if (activeUploads === 0 && uploadQueue.length === 0) {
+        alert('All uploads completed boss! 😎'); // Show alert when queue is fully processed
+        window.location.reload();
+    }
+
+    renderPendingUploadList(); // Update pending list whenever queue changes
+}
+
+function renderPendingUploadList() {
+    const pendingFilesList = document.getElementById('pending-files');
+    const pendingHeading = document.getElementById('pending-heading');
+    const pendingUploadListContainer = document.getElementById('Pending-upload-list');
+
+    // Clear previous list
+    pendingFilesList.innerHTML = '';
+
+    // Filter the queue to exclude the current uploading file
+    const pendingFiles = uploadQueue.filter(file => file !== currentUploadingFile);
+
+    // Show or hide the "Pending Uploads" heading and list based on whether there are pending files
+    if (pendingFiles.length > 0) {
+        pendingHeading.style.display = 'block'; // Show the heading if there are pending files
+        pendingFilesList.style.display = 'block'; // Show the pending uploads list
+        pendingUploadListContainer.style.border = '1px solid #ccc'; // Show the border
+    } else {
+        pendingHeading.style.display = 'none'; // Hide the heading if no pending files
+        pendingFilesList.style.display = 'none'; // Hide the pending uploads list
+        pendingUploadListContainer.style.border = 'none'; // Hide the border
+    }
+
+    pendingFiles.forEach(file => {
+        const listItem = document.createElement('li');
+        listItem.style.display = 'flex'; // Use flexbox for inline items
+        listItem.style.justifyContent = 'space-between'; // Spread items across the row
+        listItem.style.alignItems = 'center'; // Vertically align items in the center
+        listItem.style.marginBottom = '5px'; // Add margin between items
+        listItem.style.flexWrap = 'nowrap'; // Prevent line breaks for the elements
+
+        const fileNameSpan = document.createElement('span');
+        fileNameSpan.textContent = `📁 ${file.name}`; // Prepend the emoji to the filename
+        fileNameSpan.style.overflow = 'hidden'; // Ensure long names don't overflow
+        fileNameSpan.style.textOverflow = 'ellipsis'; // Add ellipsis for long names
+        fileNameSpan.style.whiteSpace = 'nowrap'; // Prevent filename from wrapping
+        fileNameSpan.style.flexGrow = '1'; // Ensure the filename takes the remaining space
+        fileNameSpan.style.marginRight = '10px'; // Add some spacing between filename and remove button
+        fileNameSpan.style.maxWidth = '300px'; // Set a fixed width where ellipsis will kick in
+
+        // Create a remove button
+        const removeButton = document.createElement('button');
+        removeButton.textContent = '❌';
+        removeButton.onclick = () => removeFilex(file); // Bind the remove function to the button
+
+        listItem.appendChild(fileNameSpan); // Add the filename span to the list item
+        listItem.appendChild(removeButton); // Add the remove button inline with the filename
+        pendingFilesList.appendChild(listItem); // Add the list item to the pending files list
+    });
+}
+
+function removeFilex(fileToRemove) {
+    // Remove the file from the upload queue
+    uploadQueue = uploadQueue.filter(file => file.name !== fileToRemove.name);
+
+    // Re-render the pending upload list
+    renderPendingUploadList();
+
+}
+
+
+
+async function uploadFile(file) {
+    const CHUNK_SIZE = 50 * 1024 * 1024; // 50 MB
+    const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+
+    activeUploads++;
+
+    // Show uploader UI
+    document.getElementById("bg-blur").style.zIndex = "2";
+    document.getElementById("bg-blur").style.opacity = "0.1";
+    document.getElementById("file-uploader").style.zIndex = "3";
+    document.getElementById("file-uploader").style.opacity = "1";
+
+    document.getElementById("upload-filename").innerText =
+        "Filename: " + file.name;
+    document.getElementById("upload-filesize").innerText =
+        "Filesize: " + (file.size / (1024 * 1024)).toFixed(2) + " MB";
+    document.getElementById("upload-status").innerText =
+        "Status: Uploading To Backend Server";
+
+    const id = getRandomId();
+    const path = getCurrentPath();
+    const password = getPassword();
+    const filenamex = file.name
+    for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+        const start = chunkIndex * CHUNK_SIZE;
+        const end = Math.min(file.size, start + CHUNK_SIZE);
+        const chunk = file.slice(start, end);
+
+        const formData = new FormData();
+        formData.append("file", chunk);
+        formData.append("path", path);
+        formData.append("password", password);
+        formData.append("id", id);
+        formData.append("chunkIndex", chunkIndex);
+        formData.append("totalChunks", totalChunks);
+        formData.append("filename", file.name);
+         formData.append("filenamex", filenamex);
+        formData.append("total_size", file.size);
+
+        const uploadRequest = new XMLHttpRequest();
+        uploadRequest.open("POST", "/api/upload", true);
+        uploadRequest.setRequestHeader(
+            "Cache-Control",
+            "no-cache, no-store, must-revalidate"
+        );
+        uploadRequest.setRequestHeader("Pragma", "no-cache");
+        uploadRequest.setRequestHeader("Expires", "0");
+
+        uploadRequest.upload.addEventListener("progress", (e) => {
+            if (e.lengthComputable) {
+                const percentComplete =
+                    ((chunkIndex + e.loaded / e.total) / totalChunks) * 100;
+                progressBar.style.width = percentComplete + "%";
+                uploadPercent.innerText =
+                    "Progress: " + percentComplete.toFixed(2) + "%";
+            }
+        });
+
+        await new Promise((resolve, reject) => {
+            uploadRequest.onload = () => {
+                if (uploadRequest.status === 200) {
+                    resolve();
+                } else {
+                    reject(`Chunk ${chunkIndex + 1} failed to upload`);
+                }
+            };
+
+            uploadRequest.onerror = () =>
+                reject(`Network error while uploading chunk ${chunkIndex + 1}`);
+            uploadRequest.send(formData);
+        });
+    }
+    await updateSaveProgress(id)
+    activeUploads--;
+    currentUploadingFile = null; // clear current uploading file
+
+    processUploadQueue();
+
+    //alert("Upload completed successfully!");
+}
+
+cancelButton.addEventListener('click', () => {
+    alert('Upload canceled');
+    window.location.reload();
+});
+
+async function updateSaveProgress(id) {
+    console.log('save progress')
+    progressBar.style.width = '0%';
+    uploadPercent.innerText = 'Progress : 0%'
+    document.getElementById('upload-status').innerText = 'Status: Processing File On Backend Server';
+
+    const interval = setInterval(async () => {
+        const response = await postJson('/api/getSaveProgress', { 'id': id })
+        const data = response['data']
+
+        if (data[0] === 'running') {
+            const current = data[1];
+            const total = data[2];
+            document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
+
+            const percentComplete = (current / total) * 100;
+            progressBar.style.width = percentComplete + '%';
+            uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
+        }
+        else if (data[0] === 'completed') {
+            clearInterval(interval);
+            uploadPercent.innerText = 'Progress : 100%'
+            progressBar.style.width = '100%';
+
+            await handleUpload2(id)
+	
+        }
+    }, 3000)
+
+}
+
+async function handleUpload2(id) {
+    document.getElementById('upload-status').innerText = 'Status: Uploading To Telegram Server';
+    progressBar.style.width = '0%';
+    uploadPercent.innerText = 'Progress : 0%';
+
+    const interval = setInterval(async () => {
+        const response = await postJson('/api/getUploadProgress', { 'id': id });
+        const data = response['data'];
+        if (data[0] === 'running') {
+            const current = data[1];
+            const total = data[2];
+            document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
+
+            let percentComplete;
+            if (total === 0) {
+                percentComplete = 0;
+            } else {
+                percentComplete = (current / total) * 100;
+            }
+            progressBar.style.width = percentComplete + '%';
+            uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
+        }
+        else if (data[0] === 'completed') {
+            clearInterval(interval);
+            activeUploads--; // Decrement active uploads counter after uploading
+            processUploadQueue(); // Check for the next file in the queue
+        }
+    }, 3000);
+}
+// File Uploader End
+// URL Uploader Start
+
+// URL Uploader Start
+
+let remoteUploadQueue = []; // Queue for remote URL uploads
+let activeRemoteUploads = 0; // Counter for active remote uploads
+const maxRemoteConcurrentUploads = 1; // Limit concurrent remote uploads to 1
+let currentUploadingRemoteFile = null; // Track the file being uploaded from URL
+
+async function handleUpload3(id) {
+    console.log(id)
+    document.getElementById('upload-status').innerText = 'Status: Uploading To Telegram Server';
+    progressBar.style.width = '0%';
+    uploadPercent.innerText = 'Progress : 0%';
+
+    const interval = setInterval(async () => {
+        const response = await postJson('/api/getUploadProgress', { 'id': id })
+        const data = response['data']
+
+        if (data[0] === 'running') {
+            const current = data[1];
+            const total = data[2];
+            document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
+
+            let percentComplete
+            if (total === 0) {
+                percentComplete = 0
+            }
+            else {
+                percentComplete = (current / total) * 100;
+            }
+            progressBar.style.width = percentComplete + '%';
+            uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
+        }
+       else if (data[0] === 'completed') {
+            clearInterval(interval);
+            activeRemoteUploads--;
+            //currentUploadingRemoteFile = null; // Reset the current uploading file
+            
+            processRemoteUploadQueue(); // Check for the next file in the queue
+         //   clearInterval(interval);
+           // alert('Upload Completed')
+            //window.location.reload();
+      }
+    }, 3000)
+}
+
+async function get_file_info_from_url(url) {
+    const data = { 'url': url }
+    const json = await postJson('/api/getFileInfoFromUrl', data)
+    if (json.status === 'ok') {
+        return json.data
+        console.log("jsondata: ", json.data);
+    } else {
+        throw new Error(`Error Getting File Info : ${json.status}`)
+    }
+
+}
+
+async function start_file_download_from_url(url, filename, singleThreaded=true) {
+    const data = { 'url': url, 'path': getCurrentPath(), 'filename': filename, 'singleThreaded': singleThreaded }
+    const json = await postJson('/api/startFileDownloadFromUrl', data)
+    if (json.status === 'ok') {
+        return json.id
+    } else {
+        throw new Error(`Error Starting File Download : ${json.status}`)
+    }
+}
+
+async function Start_URL_Upload() {
+    try {
+        document.getElementById('new-url-upload').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('new-url-upload').style.zIndex = '-1';
+        }, 300)
+        const file_url = document.getElementById('remote-url').value
+        const singleThreaded = true 
+
+        const file_info = await get_file_info_from_url(file_url);
+
+        for (let i = 0; i < file_info.length; i++) {
+            const file_urlx = file_info[i]['file_url'];
+            const file_name = file_info[i]['file_name'];
+            const file_size = file_info[i]['file_size'];
+
+            if (file_size > MAX_FILE_SIZE) {
+                throw new Error(`File size exceeds ${(MAX_FILE_SIZE / (1024 * 1024 * 1024)).toFixed(2)} GB limit`);
+            }
+
+            // Add each file to the queue
+            remoteUploadQueue.push({ file_urlx, file_name, file_size, singleThreaded });
+        }
+
+        // Start processing uploads
+        processRemoteUploadQueue();
+        renderPendingRemoteUploadList();
+    }
+    catch (err) {
+        alert("Error: " + err.message);
+        window.location.reload();
+    }
+}
+
+function processRemoteUploadQueue() {
+    if (activeRemoteUploads < maxRemoteConcurrentUploads && remoteUploadQueue.length > 0) {
+        const file = remoteUploadQueue.shift(); // Get the next file from the queue
+        currentUploadingRemoteFile = file; // Mark the current file as uploading
+        download_progress_updater(file);
+        //activeRemoteUploads++; // Increase active uploads count
+    } else if (activeRemoteUploads === 0 && remoteUploadQueue.length === 0) {
+        alert('All remote uploads completed!');
+        window.location.reload();
+    }
+
+    renderPendingRemoteUploadList(); // Update pending list whenever queue changes
+}
+
+function renderPendingRemoteUploadList() {
+    const pendingFilesList = document.getElementById('pending-files');
+    const pendingHeading = document.getElementById('pending-heading');
+    const pendingUploadListContainer = document.getElementById('Pending-upload-list');
+
+    // Clear previous list
+    pendingFilesList.innerHTML = '';
+
+    // Filter the queue to exclude the current uploading file
+    const pendingFiles = remoteUploadQueue.filter(file => file !== currentUploadingRemoteFile);
+
+    if (pendingFiles.length > 0) {
+        pendingHeading.style.display = 'block';
+        pendingFilesList.style.display = 'block';
+        pendingUploadListContainer.style.border = '1px solid #ccc';
+    } else {
+        pendingHeading.style.display = 'none';
+        pendingFilesList.style.display = 'none';
+        pendingUploadListContainer.style.border = 'none';
+    }
+
+    pendingFiles.forEach(file => {
+        const listItem = document.createElement('li');
+        listItem.style.display = 'flex'; // Use flexbox for inline items
+        listItem.style.justifyContent = 'space-between'; // Spread items across the row
+        listItem.style.alignItems = 'center'; // Vertically align items in the center
+        listItem.style.marginBottom = '5px'; // Add margin between items
+        listItem.style.flexWrap = 'nowrap'; // Prevent line breaks for the elements
+
+        const fileNameSpan = document.createElement('span');
+        fileNameSpan.textContent = `📁 ${file.file_name}`; // Prepend the emoji to the filename
+        fileNameSpan.style.overflow = 'hidden'; // Ensure long names don't overflow
+        fileNameSpan.style.textOverflow = 'ellipsis'; // Add ellipsis for long names
+        fileNameSpan.style.whiteSpace = 'nowrap'; // Prevent filename from wrapping
+        fileNameSpan.style.flexGrow = '1'; // Ensure the filename takes the remaining space
+        fileNameSpan.style.marginRight = '10px'; // Add some spacing between filename and remove button
+        fileNameSpan.style.maxWidth = '300px'; // Set a fixed width where ellipsis will kick in
+
+        // Create a remove button
+        const removeButton = document.createElement('button');
+        removeButton.textContent = '❌';
+        removeButton.onclick = () => removeFile(file); // Bind the remove function to the button
+
+        listItem.appendChild(fileNameSpan); // Add the filename span to the list item
+        listItem.appendChild(removeButton); // Add the remove button inline with the filename
+        pendingFilesList.appendChild(listItem); // Add the list item to the pending files list
+    });
+}
+
+function removeFile(fileToRemove) {
+    // Remove the file from the upload queue
+    remoteUploadQueue = remoteUploadQueue.filter(file => file.file_name !== fileToRemove.file_name);
+
+    // Re-render the pending upload list
+    renderPendingRemoteUploadList();
+
+}
+
+async function download_progress_updater({ file_urlx, file_name, file_size, singleThreaded=true}) {
+    
+    document.getElementById('upload-filename').innerText = 'Filename: ' + file_name;
+    document.getElementById('upload-filesize').innerText = 'Filesize: ' + (file_size / (1024 * 1024)).toFixed(2) + ' MB';
+    document.getElementById('upload-status').innerText = 'Status: Downloading File From Url To Backend Server';
+    uploadPercent.innerText = 'Progress : 0%'
+    progressBar.style.width = '0%';
+    const id = await start_file_download_from_url(file_urlx, file_name, singleThreaded);
+    document.getElementById('bg-blur').style.zIndex = '2';
+    document.getElementById('bg-blur').style.opacity = '0.1';
+    document.getElementById('file-uploader').style.zIndex = '3';
+    document.getElementById('file-uploader').style.opacity = '1';
+
+    
+
+    const interval = setInterval(async () => {
+        const response = await postJson('/api/getFileDownloadProgress', { 'id': id });
+        const data = response['data'];
+
+        if (data[0] === 'error') {
+            clearInterval(interval);
+            alert('Failed to download file from URL to backend server');
+            window.location.reload();
+        } else if (data[0] === 'completed') {
+            clearInterval(interval);
+            uploadPercent.innerText = 'Progress : 100%'
+            progressBar.style.width = '100%';
+            await handleUpload3(id)
+            activeRemoteUploads++;
+        } else {
+            const current = data[1];
+            const total = data[2];
+            const percentComplete = (current / total) * 100;
+            progressBar.style.width = percentComplete + '%';
+            uploadPercent.innerText = 'Progress : ' + percentComplete.toFixed(2) + '%';
+            if (data[0] === 'Downloading') {
+                
+                document.getElementById('upload-status').innerText = 'Status: Downloading File From Url To Backend Server';
+            }
+            else {
+                document.getElementById('upload-status').innerText = `Status: ${data[0]}`;
+            }
+        }
+    }, 3000)
+}
+
+// URL Uploader End
+
+
+// URL Uploader End
