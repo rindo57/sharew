@@ -385,22 +385,19 @@ async function uploadFile(file) {
                     "Progress: " + percentComplete.toFixed(2) + "%";
             }
         });
+//boom
+    uploadRequest.upload.addEventListener('load', async () => {
+        await updateSaveProgress(id)
+    });
 
-        await new Promise((resolve, reject) => {
-            uploadRequest.onload = () => {
-                if (uploadRequest.status === 200) {
-                    resolve();
-                } else {
-                    reject(`Chunk ${chunkIndex + 1} failed to upload`);
-                }
-            };
+    uploadRequest.upload.addEventListener('error', () => {
+        alert('Upload failed');
+        window.location.reload();
+    });
 
-            uploadRequest.onerror = () =>
-                reject(`Network error while uploading chunk ${chunkIndex + 1}`);
-            uploadRequest.send(formData);
-        });
-    }
-
+    uploadRequest.send(formData);
+});
+// boomm
     activeUploads--;
     currentUploadingFile = null; // clear current uploading file
 
