@@ -1605,6 +1605,7 @@ async def upload_file(
 
 
 
+
 SAVE_PROGRESS = {}
 UPLOAD_DIRECTORY = "./cache"
 
@@ -1625,38 +1626,38 @@ async def upload_file(
 
     if not session:
         raise HTTPException(status_code=403, detail="Not authenticated")
-
+#       return JSONResponse({"status": "Invalid password"}, status_code=403)
     try:
         payload = jwt.decode(session, JWT_SECRET, algorithms=["HS256"])
+        
+        print("SESSION: ", session)
         tgid = payload.get("telegram_id")
+        print("Telegram ID: ", tgid)
         tggid = str(tgid)
         token_data = await magic_links_collection.find_one({"token": session})
         adminid = await magic_links_collection.find_one({"telegram_id": tggid})
         uploader = adminid["uploader"]
-
-        # Create upload directory
+  # Create upload directory
         upload_dir = Path(UPLOAD_DIRECTORY) / path
         upload_dir.mkdir(parents=True, exist_ok=True)
 
         # Temporary file path for chunks
         temp_file_path = upload_dir / f"{filename}.part"
 
-        # Append the chunk to the temporary file
+    # Append the chunk to the temporary file
         async with aiofiles.open(temp_file_path, "ab") as f:
             chunk = await file.read()
             await f.write(chunk)
 
-        # Update progress for backend processing
         SAVE_PROGRESS[id] = {
             "status": "running",
             "uploaded_chunks": chunkIndex + 1,
             "total_chunks": totalChunks,
             "uploaded_size": (chunkIndex + 1) * 50 * 1024 * 1024,
             "total_size": total_size,
-            "upload_to_storage_status": "pending",  # Add status for storage upload
         }
 
-        # If all chunks are received, assemble the final file
+    # If all chunks are received, assemble the final file
         if chunkIndex + 1 == totalChunks:
             final_file_path = upload_dir / filenamex
 
@@ -1665,27 +1666,29 @@ async def upload_file(
                     while data := await temp_file.read(1024 * 1024):  # Read 1MB at a time
                         await final_file.write(data)
 
-            # Remove temporary file
+        # Remove temporary file
             os.remove(temp_file_path)
-
-            # Start uploading to storage server
-            SAVE_PROGRESS[id]["upload_to_storage_status"] = "running"
             asyncio.create_task(
                 start_file_uploader(final_file_path, id, path, filenamex, total_size, uploader)
             )
-
-            # Mark backend processing as complete
-            SAVE_PROGRESS[id]["status"] = "completed"
-            logger.info(f"Backend processing complete for file ID {id}")
+            SAVE_PROGRESS[id] = {
+                "status": "completed",
+                "uploaded_chunks": totalChunks,
+                "total_chunks": totalChunks,
+                "uploaded_size": total_size,
+                "total_size": total_size,
+            }
 
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=403, detail="Session expired")
     except jwt.InvalidTokenError:
-        raise HTTPException(status_code=403, detail="Invalid session token")
-
-    logger.info(f"Upload progress for file ID {id}: {SAVE_PROGRESS[id]}")
+        raise HTTPException(status_code=403, detail="Invalid session token")  
     return JSONResponse({"status": "ok", "progress": SAVE_PROGRESS[id]})
+# uploading final file to storage server
 
+
+    return JSONResponse({"id": id, "status": "ok"})
+        
 @app.post("/api/getSaveProgress")
 async def get_save_progress(request: Request, session: str = Cookie(None)):
     global SAVE_PROGRESS
@@ -1694,42 +1697,37 @@ async def get_save_progress(request: Request, session: str = Cookie(None)):
 
     if not session:
         raise HTTPException(status_code=403, detail="Not authenticated")
-
+#       return JSONResponse({"status": "Invalid password"})
     try:
         payload = jwt.decode(session, JWT_SECRET, algorithms=["HS256"])
-        logger.info(f"getSaveProgress request for file ID {data['id']}")
-
+        logger.info(f"getUploadProgress {data}")
         try:
             progress = SAVE_PROGRESS[data["id"]]
-            logger.info(f"Progress for file ID {data['id']}: {progress}")
             return JSONResponse({"status": "ok", "data": progress})
-        except KeyError:
-            logger.warning(f"File ID {data['id']} not found in SAVE_PROGRESS")
+        except:
             return JSONResponse({"status": "not found"})
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=403, detail="Session expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=403, detail="Invalid session token")
+    
 
 @app.post("/api/getUploadProgress")
 async def get_upload_progress(request: Request, session: str = Cookie(None)):
-    global SAVE_PROGRESS
+    from utils.uploader import PROGRESS_CACHE
 
     data = await request.json()
-
     if not session:
         raise HTTPException(status_code=403, detail="Not authenticated")
-
+#       return JSONResponse({"status": "Invalid password"})
     try:
         payload = jwt.decode(session, JWT_SECRET, algorithms=["HS256"])
-        logger.info(f"getUploadProgress request for file ID {data['id']}")
+        logger.info(f"getUploadProgress {data}")
 
         try:
-            progress = SAVE_PROGRESS[data["id"]]
-            logger.info(f"Upload progress for file ID {data['id']}: {progress}")
+            progress = PROGRESS_CACHE[data["id"]]
             return JSONResponse({"status": "ok", "data": progress})
-        except KeyError:
-            logger.warning(f"File ID {data['id']} not found in SAVE_PROGRESS")
+        except:
             return JSONResponse({"status": "not found"})
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=403, detail="Session expired")
