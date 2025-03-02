@@ -279,6 +279,10 @@ async def set_folder_handler(client: Client, message: Message):
         "Select the folder where you want to upload files",
         reply_markup=InlineKeyboardMarkup(buttons),
     )
+    await message.reply_text(
+        dir_result
+    )
+
 
 
 @main_bot.on_callback_query(
