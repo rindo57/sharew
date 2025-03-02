@@ -1609,6 +1609,19 @@ async def upload_file(
 SAVE_PROGRESS = {}
 UPLOAD_DIRECTORY = "./cache"
 
+from fastapi import FastAPI, UploadFile, Form, HTTPException, Cookie
+from fastapi.responses import JSONResponse
+from pathlib import Path
+import aiofiles
+import os
+import jwt
+import asyncio
+
+app = FastAPI()
+
+# Global variable to track upload progress
+SAVE_PROGRESS = {}
+
 @app.post("/api/upload")
 async def upload_file(
     file: UploadFile = Form(...),
@@ -1626,57 +1639,60 @@ async def upload_file(
 
     if not session:
         raise HTTPException(status_code=403, detail="Not authenticated")
-#       return JSONResponse({"status": "Invalid password"}, status_code=403)
+
     try:
         payload = jwt.decode(session, JWT_SECRET, algorithms=["HS256"])
-        
-        print("SESSION: ", session)
         tgid = payload.get("telegram_id")
-        print("Telegram ID: ", tgid)
         tggid = str(tgid)
         token_data = await magic_links_collection.find_one({"token": session})
         adminid = await magic_links_collection.find_one({"telegram_id": tggid})
         uploader = adminid["uploader"]
-  # Create upload directory
+
+        # Create upload directory
         upload_dir = Path(UPLOAD_DIRECTORY) / path
         upload_dir.mkdir(parents=True, exist_ok=True)
 
         # Temporary file path for chunks
         temp_file_path = upload_dir / f"{filename}.part"
 
-    # Append the chunk to the temporary file
+        # Append the chunk to the temporary file
         async with aiofiles.open(temp_file_path, "ab") as f:
             chunk = await file.read()
             await f.write(chunk)
-	file_size = 0
-    # If all chunks are received, assemble the final file
+
+        file_size = 0
+
+        # If all chunks are received, assemble the final file
         if chunkIndex + 1 == totalChunks:
             final_file_path = upload_dir / filenamex
 
             async with aiofiles.open(final_file_path, "wb") as final_file:
                 async with aiofiles.open(temp_file_path, "rb") as temp_file:
                     while data := await temp_file.read(1024 * 1024):  # Read 1MB at a time
-			SAVE_PROGRESS[id] = ("running", file_size, total_size)
-			print(SAVE_PROGRESS[id])
-			file_size += len(data)
+                        SAVE_PROGRESS[id] = ("running", file_size, total_size)
+                        print(SAVE_PROGRESS[id])
+                        file_size += len(data)
                         await final_file.write(data)
 
-        # Remove temporary file
+            # Remove temporary file
             os.remove(temp_file_path)
+
+            # Start the file uploader task
             asyncio.create_task(
                 start_file_uploader(final_file_path, id, path, filenamex, total_size, uploader)
             )
-             SAVE_PROGRESS[id] = ("completed", file_size, file_size)
-	     print(SAVE_PROGRESS[id])
+
+            SAVE_PROGRESS[id] = ("completed", file_size, file_size)
+            print(SAVE_PROGRESS[id])
+
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=403, detail="Session expired")
     except jwt.InvalidTokenError:
-        raise HTTPException(status_code=403, detail="Invalid session token")  
+        raise HTTPException(status_code=403, detail="Invalid session token")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
     return JSONResponse({"status": "ok", "progress": SAVE_PROGRESS[id]})
-# uploading final file to storage server
-
-
-    return JSONResponse({"id": id, "status": "ok"})
         
 @app.post("/api/getSaveProgress")
 async def get_save_progress(request: Request, session: str = Cookie(None)):
