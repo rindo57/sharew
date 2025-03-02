@@ -402,15 +402,9 @@ async function uploadFile(file) {
     }
 
     activeUploads--;
-    currentUploadingFile = null; // Clear the current uploading file
-
-// Trigger backend processing status
-    document.getElementById("upload-status").innerText = "Status: Processing File On Backend Server";
-
-    await updateSaveProgress(id); // Ensure backend processing status is shown
+    currentUploadingFile = null; // clear current uploading file
 
     processUploadQueue();
-
 
     //alert("Upload completed successfully!");
 }
@@ -421,22 +415,19 @@ cancelButton.addEventListener('click', () => {
 });
 
 async function updateSaveProgress(id) {
-    console.log('Processing file in backend');
-    
-    // Update UI to show processing status
+    console.log('save progress')
     progressBar.style.width = '0%';
-    uploadPercent.innerText = 'Progress : 0%';
+    uploadPercent.innerText = 'Progress : 0%'
     document.getElementById('upload-status').innerText = 'Status: Processing File On Backend Server';
 
     const interval = setInterval(async () => {
-        const response = await postJson('/api/getSaveProgress', { 'id': id });
-        const data = response['data'];
+        const response = await postJson('/api/getSaveProgress', { 'id': id })
+        const data = response['data']
 
         if (data[0] === 'running') {
             const current = data[1];
             const total = data[2];
-            document.getElementById('upload-filesize').innerText = 
-                'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
+            document.getElementById('upload-filesize').innerText = 'Filesize: ' + (total / (1024 * 1024)).toFixed(2) + ' MB';
 
             const percentComplete = (current / total) * 100;
             progressBar.style.width = percentComplete + '%';
@@ -444,16 +435,14 @@ async function updateSaveProgress(id) {
         }
         else if (data[0] === 'completed') {
             clearInterval(interval);
-            uploadPercent.innerText = 'Progress : 100%';
+            uploadPercent.innerText = 'Progress : 100%'
             progressBar.style.width = '100%';
 
-            // Ensure Telegram upload status is displayed
-            await handleUpload2(id);
+            await handleUpload2(id)
         }
-    }, 3000);
+    }, 3000)
+
 }
-
-
 
 async function handleUpload2(id) {
     document.getElementById('upload-status').innerText = 'Status: Uploading To Telegram Server';
