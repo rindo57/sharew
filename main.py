@@ -1680,7 +1680,7 @@ async def upload_file(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-    return JSONResponse({"status": "ok", "progress": SAVE_PROGRESS[id]})
+    return JSONResponse({"id": id, "status": "ok"})
         
 @app.post("/api/getSaveProgress")
 async def get_save_progress(request: Request, session: str = Cookie(None)):
