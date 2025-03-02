@@ -278,9 +278,7 @@ async def set_folder_handler(client: Client, message: Message):
         "Select the folder where you want to upload files",
         reply_markup=InlineKeyboardMarkup(buttons),
     )
-    await message.reply_text(
-        dir_result
-    )
+
 
 
 
@@ -289,7 +287,7 @@ async def set_folder_handler(client: Client, message: Message):
 )
 async def set_folder_callback(client: Client, callback_query: Message):
     global SET_FOLDER_PATH_CACHE, BOT_MODE
-
+    user_id = callback_query.from_user.id
     folder_cache_id, folder_id = callback_query.data.split("_")[2:]
 
     folder_path_cache = SET_FOLDER_PATH_CACHE.get(int(folder_cache_id))
@@ -303,7 +301,7 @@ async def set_folder_callback(client: Client, callback_query: Message):
     print("folder path ", folder_path)
     dir_result = DRIVE_DATA.search_file_folder("citrus", folder_path)
     print("dir_result ", dir_result) 
-    await main_bot.send_message(dir_result)
+    await main_bot.send_message(user_id, dir_result)
     BOT_MODE.set_folder(folder_path, name)
 
     await callback_query.answer(f"Folder Set Successfully To : {name}")
@@ -322,7 +320,14 @@ async def current_folder_handler(client: Client, message: Message):
 
     await message.reply_text(f"Current Folder: {BOT_MODE.current_folder_name}")
 
-
+@main_bot.on_message(
+    filters.command("id")
+    & filters.private
+    & filters.user(config.TELEGRAM_ADMIN_IDS),
+)
+async def id(client: Client, message: Message):
+    user_id = message.from_user.id
+    await message.reply_text(f"User ID: `{user_id}`")
 # Handling when any file is sent to the bot
 @main_bot.on_message(
     filters.private
