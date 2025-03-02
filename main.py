@@ -1609,18 +1609,6 @@ async def upload_file(
 SAVE_PROGRESS = {}
 UPLOAD_DIRECTORY = "./cache"
 
-from fastapi import FastAPI, UploadFile, Form, HTTPException, Cookie
-from fastapi.responses import JSONResponse
-from pathlib import Path
-import aiofiles
-import os
-import jwt
-import asyncio
-
-app = FastAPI()
-
-# Global variable to track upload progress
-SAVE_PROGRESS = {}
 
 @app.post("/api/upload")
 async def upload_file(
