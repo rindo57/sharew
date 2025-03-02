@@ -309,7 +309,7 @@ class NewDriveData:
                 #traverse_directory(item)  # Continue traversing subfolders
 
         traverse_directory(root_dir)
-        print("search results " search_results)
+        print("search results ", search_results)
         return search_results  # Ensure the function returns the results
 
     def search_file_folderx(self, query: str):
