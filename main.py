@@ -1648,8 +1648,6 @@ async def upload_file(
         async with aiofiles.open(temp_file_path, "ab") as f:
             chunk = await file.read()
             await f.write(chunk)
-
-   
 	file_size = 0
     # If all chunks are received, assemble the final file
         if chunkIndex + 1 == totalChunks:
