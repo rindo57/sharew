@@ -1676,12 +1676,14 @@ async def upload_file(
 
             # Mark backend processing as complete
             SAVE_PROGRESS[id]["status"] = "completed"
+            logger.info(f"Backend processing complete for file ID {id}")
 
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=403, detail="Session expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=403, detail="Invalid session token")
 
+    logger.info(f"Upload progress for file ID {id}: {SAVE_PROGRESS[id]}")
     return JSONResponse({"status": "ok", "progress": SAVE_PROGRESS[id]})
 
 @app.post("/api/getSaveProgress")
@@ -1695,12 +1697,14 @@ async def get_save_progress(request: Request, session: str = Cookie(None)):
 
     try:
         payload = jwt.decode(session, JWT_SECRET, algorithms=["HS256"])
-        logger.info(f"getSaveProgress {data}")
+        logger.info(f"getSaveProgress request for file ID {data['id']}")
 
         try:
             progress = SAVE_PROGRESS[data["id"]]
+            logger.info(f"Progress for file ID {data['id']}: {progress}")
             return JSONResponse({"status": "ok", "data": progress})
         except KeyError:
+            logger.warning(f"File ID {data['id']} not found in SAVE_PROGRESS")
             return JSONResponse({"status": "not found"})
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=403, detail="Session expired")
@@ -1718,12 +1722,14 @@ async def get_upload_progress(request: Request, session: str = Cookie(None)):
 
     try:
         payload = jwt.decode(session, JWT_SECRET, algorithms=["HS256"])
-        logger.info(f"getUploadProgress {data}")
+        logger.info(f"getUploadProgress request for file ID {data['id']}")
 
         try:
             progress = SAVE_PROGRESS[data["id"]]
+            logger.info(f"Upload progress for file ID {data['id']}: {progress}")
             return JSONResponse({"status": "ok", "data": progress})
         except KeyError:
+            logger.warning(f"File ID {data['id']} not found in SAVE_PROGRESS")
             return JSONResponse({"status": "not found"})
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=403, detail="Session expired")
