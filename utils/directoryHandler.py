@@ -306,9 +306,10 @@ class NewDriveData:
             for item in folder.contents.values():
                 if item.type == "folder":  # Only include folders
                     search_results[item.id] = item
-                traverse_directory(item)  # Continue traversing subfolders
+                #traverse_directory(item)  # Continue traversing subfolders
 
         traverse_directory(root_dir)
+        print("search results " search_results)
         return search_results  # Ensure the function returns the results
 
     def search_file_folderx(self, query: str):
