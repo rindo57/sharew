@@ -224,7 +224,6 @@ async function getFolderShareAuth(path) {
 }
 
 // File Uploader Start
-// File Uploader Start
 const MAX_FILE_SIZE = 2126008811.52; // Will be replaced by the python
 
 const fileInput = document.getElementById('fileInput');
@@ -350,8 +349,7 @@ async function uploadFile(file) {
     const id = getRandomId();
     const path = getCurrentPath();
     const password = getPassword();
-    const filenamex = file.name;
-
+    const filenamex = file.name
     for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
         const start = chunkIndex * CHUNK_SIZE;
         const end = Math.min(file.size, start + CHUNK_SIZE);
@@ -365,7 +363,7 @@ async function uploadFile(file) {
         formData.append("chunkIndex", chunkIndex);
         formData.append("totalChunks", totalChunks);
         formData.append("filename", file.name);
-        formData.append("filenamex", filenamex);
+         formData.append("filenamex", filenamex);
         formData.append("total_size", file.size);
 
         const uploadRequest = new XMLHttpRequest();
@@ -387,22 +385,27 @@ async function uploadFile(file) {
             }
         });
 
-        uploadRequest.upload.addEventListener("load", async () => {
-            await updateSaveProgress(id);
-        });
+        await new Promise((resolve, reject) => {
+            uploadRequest.onload = () => {
+                if (uploadRequest.status === 200) {
+                    resolve();
+                } else {
+                    reject(`Chunk ${chunkIndex + 1} failed to upload`);
+                }
+            };
 
-        uploadRequest.upload.addEventListener("error", () => {
-            alert("Upload failed");
-            window.location.reload();
+            uploadRequest.onerror = () =>
+                reject(`Network error while uploading chunk ${chunkIndex + 1}`);
+            uploadRequest.send(formData);
         });
-
-        uploadRequest.send(formData);
-    } // <-- Correctly closing the loop
+    }
 
     activeUploads--;
     currentUploadingFile = null; // clear current uploading file
 
     processUploadQueue();
+
+    //alert("Upload completed successfully!");
 }
 
 cancelButton.addEventListener('click', () => {
@@ -470,7 +473,6 @@ async function handleUpload2(id) {
     }, 3000);
 }
 // File Uploader End
-// URL Uploader Start
 
 // URL Uploader Start
 
