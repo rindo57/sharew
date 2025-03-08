@@ -234,13 +234,12 @@ async def st_folder_handler(client: Client, message: Message, mdata: dict):
     if len(folders) == 0:
         await message.reply_text(f"No Folder found with name {folder_name}")
     else:
-        break
-    folder_text = ""
-    for folder in search_result.values():
-        path = folder.path.strip("/")
-        folder_path = "/" + ("/" + path + "/" + folder.id).strip("/")
-        folder_text=f"{folder.name}\nID: `{folder.id}`\n`{folder_path}`\n\n"
-    await message.reply_text(folder_text)
+        folder_text = ""
+        for folder in search_result.values():
+            path = folder.path.strip("/")
+            folder_path = "/" + ("/" + path + "/" + folder.id).strip("/")
+            folder_text=f"{folder.name}\nID: `{folder.id}`\n`{folder_path}`\n\n"
+        await message.reply_text(folder_text)
             
 
     
