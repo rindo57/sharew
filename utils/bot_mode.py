@@ -218,6 +218,34 @@ def get_media_language_info(file_path):
         return {}
 
 @main_bot.on_message(
+    filters.command("search")
+    & filters.private
+    & filters.user(config.TELEGRAM_ADMIN_IDS),
+)
+async def st_folder_handler(client: Client, message: Message, mdata: dict):
+    folder_name = mdata['text'].split(" ", 1)[1]
+    print(folder_name)
+    search_result = DRIVE_DATA.search_file_foldertg(folder_name)
+    folders = {}
+    for item in search_result.values():
+        if item.type == "folder":
+            folders[item.id] = item
+
+    if len(folders) == 0:
+        await message.reply_text(f"No Folder found with name {folder_name}")
+    else:
+        break
+    folder_text = ""
+    for folder in search_result.values():
+        path = folder.path.strip("/")
+        folder_path = "/" + ("/" + path + "/" + folder.id).strip("/")
+        folder_text=f"{folder.name}\nID: `{folder.id}`\n`{folder_path}`\n\n"
+    await message.reply_text(folder_text)
+            
+
+    
+    
+@main_bot.on_message(
     filters.command("set_folder")
     & filters.private
     & filters.user(config.TELEGRAM_ADMIN_IDS),
@@ -242,7 +270,7 @@ async def set_folder_handler(client: Client, message: Message):
 
         folder_name = folder_name.text.strip()
         print("folder patch cache: ", SET_FOLDER_PATH_CACHE)
-        search_result = DRIVE_DATA.search_file_folderx(folder_name)
+        search_result = DRIVE_DATA.search_file_foldertg(folder_name)
         
         
         # Get folders from search result
