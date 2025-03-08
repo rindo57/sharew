@@ -152,10 +152,12 @@ def get_rentry_link(text):
     & filters.user(config.TELEGRAM_ADMIN_IDS),
 )
 async def st_folder_handler(client: Client, message: Message):
+    global DRIVE_DATA
     print("search start")
     folder_name = message.text.split(" ", 1)[1]
     print(folder_name)
     search_result = DRIVE_DATA.search_file_foldertg(folder_name)
+    print(search_result)
     folders = {}
     for item in search_result.values():
         if item.type == "folder":
