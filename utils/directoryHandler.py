@@ -36,7 +36,8 @@ class Folder:
             self.id = getRandomID()
         self.type = "folder"
         self.trash = False
-        self.path = path[:-1] if path[-1] == "/" else path
+        self.path = ("/" + path.strip("/") + "/").replace("//", "/")
+        
         self.upload_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.uploader = uploader
         self.auth_hashes = []
