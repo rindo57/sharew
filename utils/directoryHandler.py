@@ -366,7 +366,7 @@ BOT_MODE: NewBotMode = None
 
 
 # Function to backup the drive data to telegram
-async def backup_drive_data():
+async def backup_drive_data(loop=True):
     global DRIVE_DATA
     logger.info("Starting backup drive data task")
 
