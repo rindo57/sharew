@@ -204,6 +204,7 @@ async def start():
     # Recursively create folders and schedule file uploads.
     def create_folders(lpath, cpath):
         folders = get_all_folders(lpath)
+        uploader="XenZen"
         for new_lpath in folders:
             folder_name = os.path.basename(new_lpath)
             new_cpath = getCpath(folder_name, cpath)
@@ -211,7 +212,8 @@ async def start():
                 logger.info(
                     f"Creating cloud folder for local folder '{folder_name}' under {cpath}"
                 )
-                new_cpath = DRIVE_DATA.new_folder(cpath, folder_name)
+                
+                new_cpath = DRIVE_DATA.new_folder(cpath, folder_name, uploader)
                 logger.info(f"Created cloud folder '{folder_name}' at {new_cpath}")
             # Schedule uploads for files in the current folder.
             upload_files(new_lpath, new_cpath)
