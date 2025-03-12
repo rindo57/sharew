@@ -204,9 +204,11 @@ async def start():
     # Recursively create folders and schedule file uploads.
     def create_folders(lpath, cpath):
         folders = get_all_folders(lpath)
+        print("folders", folders)
         uploader="XenZen"
         for new_lpath in folders:
             folder_name = os.path.basename(new_lpath)
+            print("folder name ", folder_name)
             new_cpath = getCpath(folder_name, cpath)
             if not new_cpath:
                 logger.info(
