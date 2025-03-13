@@ -394,7 +394,7 @@ async def backup_drive_data(loop=True):
             msg = await client.get_messages(
                 config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
             )
-            if msg.document.caption == "Script":
+            if msg.caption == "Script":
                 await loadDriveData()
             # Create the media document without file_name.
                 media_doc = InputMediaDocument(drive_cache_path, caption=caption)
@@ -449,7 +449,7 @@ async def backup_drive_data2(loop=True):
             msg = await client.get_messages(
                 config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
             )
-            if msg.document.caption == "UI":
+            if msg.caption == "UI":
                 await loadDriveData()
             # Create the media document without file_name.
                 media_doc = InputMediaDocument(drive_cache_path, caption=caption)
