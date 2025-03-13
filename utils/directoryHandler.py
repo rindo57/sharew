@@ -408,7 +408,20 @@ async def backup_drive_data(loop=True):
 
                 DRIVE_DATA.isUpdated = False
                 logger.info("Drive data backed up to telegram")
+            elif msgx.caption == "UI":
+             #   await loadDriveData2()
+            # Create the media document without file_name.
+                media_doc = InputMediaDocument(drive_cache_path, caption=caption)
+            # Pass file_name as parameter to edit_message_media.
+                msg = await client.edit_message_media(
+                    config.STORAGE_CHANNEL,
+                    config.DATABASE_BACKUP_MSG_ID,
+                    media=media_doc,
+                    file_name="drive.data",
+                )
 
+                DRIVE_DATA.isUpdated = False
+                logger.info("Drive data backed up to telegram")
             try:
                 await msg.pin()
             except Exception as pin_e:
@@ -451,6 +464,20 @@ async def backup_drive_data2(loop=True):
             )
             if msgx.caption == "UI":
                 await loadDriveData2()
+            # Create the media document without file_name.
+                media_doc = InputMediaDocument(drive_cache_path, caption=caption)
+            # Pass file_name as parameter to edit_message_media.
+                msg = await client.edit_message_media(
+                    config.STORAGE_CHANNEL,
+                    config.DATABASE_BACKUP_MSG_ID,
+                    media=media_doc,
+                    file_name="drive.data",
+                )
+
+                DRIVE_DATA.isUpdated = False
+                logger.info("Drive data backed up to telegram")
+            if msgx.caption == "Script":
+               # await loadDriveData2()
             # Create the media document without file_name.
                 media_doc = InputMediaDocument(drive_cache_path, caption=caption)
             # Pass file_name as parameter to edit_message_media.
