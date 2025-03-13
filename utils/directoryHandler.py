@@ -122,8 +122,9 @@ class NewDriveData:
             for path in paths:
                 directory_folder = directory_folder.contents[path]
             directory_folder.contents[file.id] = file
-
+        logger.info("just before saving")
         self.save()
+        logger.info(f"Created new file {name} in {path} by {uploader} successfully")
 
     def get_directory(
         self, path: str, is_admin: bool = True, auth: str = None
