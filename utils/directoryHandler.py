@@ -476,7 +476,7 @@ async def backup_drive_data2(loop=True):
 
                 DRIVE_DATA.isUpdated = False
                 logger.info("Drive data backed up to telegram")
-            if msgx.caption == "Script":
+            elif msgx.caption == "Script":
                # await loadDriveData2()
             # Create the media document without file_name.
                 media_doc = InputMediaDocument(drive_cache_path, caption=caption)
