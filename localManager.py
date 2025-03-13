@@ -12,7 +12,7 @@ from config import BOT_TOKENS
 from utils.clients import initialize_clients
 from utils.directoryHandler import backup_drive_data2, getRandomID
 from utils.extra import convert_class_to_dict
-from utils.uploader import start_file_uploader
+from utils.uploader import start_file_uploader2
 
 # Configure logging: Log messages will be output to the console and saved in manager.log
 logging.basicConfig(
@@ -82,7 +82,7 @@ async def worker():
         logger.info(f"Starting upload for '{fname}' with id {id}")
         try:
             uploader = "XenZen"
-            await start_file_uploader(file, id, cpath, fname, file_size, uploader)
+            await start_file_uploader2(file, id, cpath, fname, file_size, uploader)
             await ayncio.sleep(11)
         except Exception as e:
             with open("failed.txt", "a") as f:
