@@ -391,11 +391,11 @@ async def backup_drive_data(loop=True):
             client = get_client()
             time_text = f"📅 **Last Updated :** {get_current_utc_time()} (UTC +00:00)"
             caption = ("UI")
-            msg = await client.get_messages(
+            msgx = await client.get_messages(
                 config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
             )
-            if msg.caption == "Script":
-                await loadDriveData()
+            if msgx.caption == "Script":
+                await loadDriveData2()
             # Create the media document without file_name.
                 media_doc = InputMediaDocument(drive_cache_path, caption=caption)
             # Pass file_name as parameter to edit_message_media.
@@ -446,11 +446,11 @@ async def backup_drive_data2(loop=True):
             client = get_client()
             time_text = f"📅 **Last Updated :** {get_current_utc_time()} (UTC +00:00)"
             caption = ("Script")
-            msg = await client.get_messages(
+            msgx = await client.get_messages(
                 config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
             )
-            if msg.caption == "UI":
-                await loadDriveData()
+            if msgx.caption == "UI":
+                await loadDriveData2()
             # Create the media document without file_name.
                 media_doc = InputMediaDocument(drive_cache_path, caption=caption)
             # Pass file_name as parameter to edit_message_media.
@@ -498,7 +498,39 @@ async def init_drive_data():
 
     DRIVE_DATA.save()
 
+async def loadDriveData2():
+    global DRIVE_DATA, BOT_MODE
 
+    # Checking if the backup file exists on telegram
+    from utils.clients import get_client
+
+    client = get_client()
+    try:
+        try:
+            msg = await client.get_messages(
+                config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
+            )
+        except Exception as e:
+            logger.error(e)
+            raise Exception("Failed to get DATABASE_BACKUP_MSG_ID on telegram")
+
+        if msg.document.file_name == "drive.data":
+            dl_path = await msg.download()
+            with open(dl_path, "rb") as f:
+                DRIVE_DATA = pickle.load(f)
+
+            logger.info("Drive data loaded from backup file from telegram")
+        else:
+            raise Exception("Backup drive.data file not found on telegram")
+    except Exception as e:
+        logger.warning(e)
+        logger.info("Creating new drive.data file")
+        DRIVE_DATA = NewDriveData({"/": Folder("/", "/", "root")}, [])
+        DRIVE_DATA.save()
+
+    # For updating the changes in already existing old backup drive.data file
+    await init_drive_data()
+    
 async def loadDriveData():
     global DRIVE_DATA, BOT_MODE
 
