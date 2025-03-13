@@ -10,7 +10,7 @@ import logging
 
 from config import BOT_TOKENS
 from utils.clients import initialize_clients
-from utils.directoryHandler import backup_drive_data, getRandomID
+from utils.directoryHandler import backup_drive_data2, getRandomID
 from utils.extra import convert_class_to_dict
 from utils.uploader import start_file_uploader
 
@@ -242,7 +242,7 @@ async def start():
     await progress_task
 
     logger.info("All uploads completed successfully.")
-    await backup_drive_data(False)
+    await backup_drive_data2(False)
     logger.info("Backup completed successfully.")
     logger.info("Exiting...")
     await asyncio.sleep(1)
