@@ -488,7 +488,6 @@ async def backup_drive_data2():
 
         DRIVE_DATA.isUpdated = False
         logger.info("Drive data backed up to telegram")
-
         else:
             logger.info("Unknown message caption. Skipping backup.")
     except Exception as e:
