@@ -187,6 +187,7 @@ async def start():
             TOTAL_UPLOAD += file_size
             # Enqueue the upload task. 'b' is set to False.
             upload_queue.put_nowait((file, id, cpath, fname, file_size, False))
+            print("Upload Queue put no wait ", upload_queue)
 
     # Create the root folder in the cloud if it does not exist.
     root_cpath = getCpath(root_name, "/")
