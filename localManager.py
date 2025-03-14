@@ -83,7 +83,7 @@ async def worker():
         try:
             uploader = "XenZen"
             await start_file_uploader2(file, id, cpath, fname, file_size, uploader)
-            await ayncio.sleep(11)
+            await asyncio.sleep(11)
         except Exception as e:
             with open("failed.txt", "a") as f:
                 f.write(f"{file}\n")
