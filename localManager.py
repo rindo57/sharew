@@ -249,7 +249,7 @@ async def start():
     await progress_task
 
     logger.info("All uploads completed successfully.")
-    await backup_drive_data2(False)
+    await backup_drive_data2()
     logger.info("Backup completed successfully.")
     logger.info("Exiting...")
     await asyncio.sleep(1)
