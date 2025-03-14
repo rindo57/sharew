@@ -436,7 +436,7 @@ async def backup_drive_data(loop=True):
             logger.error("Backup Error : " + str(e))
             await asyncio.sleep(10)
 
-async def backup_drive_data():
+async def backup_drive_data2():
     """
     Backup the drive data to Telegram.
     This version reads the drive.data file into memory using a BytesIO buffer so that
@@ -460,8 +460,7 @@ async def backup_drive_data():
         msgx = await client.get_messages(
             config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
         )
-        
-       if msgx.caption == "UI":
+        if msgx.caption == "UI":
             await loadDriveData2()
             # Create the media document without file_name.
             media_doc = InputMediaDocument(drive_cache_path, caption=caption)
@@ -496,74 +495,6 @@ async def backup_drive_data():
         logger.error("Backup Error : " + str(e))
 
 
-async def backup_drive_data2(loop=False):
-    """
-    Backup the drive data to Telegram.
-    This version reads the drive.data file into memory using a BytesIO buffer so that
-    the file is immediately closed, preventing the "Too many open files" error.
-    The file name is passed as a parameter to edit_message_media.
-    """
-    global DRIVE_DATA
-    logger.info("Starting backup drive data task")
-
-    while True:
-        try:
-            if not DRIVE_DATA.isUpdated:
-                if not loop:
-                    break
-                await asyncio.sleep(config.DATABASE_BACKUP_TIME)
-                continue
-
-            logger.info("Backing up drive data to telegram")
-            from utils.clients import get_client
-
-            client = get_client()
-            time_text = f"📅 **Last Updated :** {get_current_utc_time()} (UTC +00:00)"
-            caption = ("Script")
-            msgx = await client.get_messages(
-                config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
-            )
-            if msgx.caption == "UI":
-                await loadDriveData2()
-            # Create the media document without file_name.
-                media_doc = InputMediaDocument(drive_cache_path, caption=caption)
-            # Pass file_name as parameter to edit_message_media.
-                msg = await client.edit_message_media(
-                    config.STORAGE_CHANNEL,
-                    config.DATABASE_BACKUP_MSG_ID,
-                    media=media_doc,
-                    file_name="drive.data",
-                )
-
-                DRIVE_DATA.isUpdated = False
-                logger.info("Drive data backed up to telegram")
-            elif msgx.caption == "Script":
-               # await loadDriveData2()
-            # Create the media document without file_name.
-                media_doc = InputMediaDocument(drive_cache_path, caption=caption)
-            # Pass file_name as parameter to edit_message_media.
-                msg = await client.edit_message_media(
-                    config.STORAGE_CHANNEL,
-                    config.DATABASE_BACKUP_MSG_ID,
-                    media=media_doc,
-                    file_name="drive.data",
-                )
-
-                DRIVE_DATA.isUpdated = False
-                logger.info("Drive data backed up to telegram")
-
-            try:
-                await msg.pin()
-            except Exception as pin_e:
-                logger.error(f"Error pinning backup message: {pin_e}")
-
-            if not loop:
-                break
-
-            await asyncio.sleep(config.DATABASE_BACKUP_TIME)
-        except Exception as e:
-            logger.error("Backup Error : " + str(e))
-            await asyncio.sleep(10)
 
 async def init_drive_data():
     # auth_hashes attribute is added to all the folders in the drive data if it doesn't exist
