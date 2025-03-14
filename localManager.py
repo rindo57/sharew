@@ -41,7 +41,7 @@ def get_all_files(root_folder):
         for f in os.listdir(root_folder)
         if os.path.isfile(os.path.join(root_folder, f))
     ]
-    logger.info(f"Found files in {root_folder}: {files}")
+    print(f"Found files in {root_folder}: {files}")
     return files
 
 
@@ -188,7 +188,7 @@ async def start():
             # Enqueue the upload task. 'b' is set to False.
             try:
                 upload_queue.put_nowait((file, id, cpath, fname, file_size, False))
-                logger.info(f"Added '{fname}' to upload queue.")
+                print("upload queue no wait ", upload_queue)
             except asyncio.QueueFull:
                 logger.error(f"Queue full! Could not add '{fname}' to upload queue.")
 
