@@ -93,6 +93,7 @@ async def worker():
         PROGRESS_CACHE[id] = ("completed", file_size, file_size)
         logger.info(f"Completed upload for '{fname}' with id {id}")
         upload_queue.task_done()
+        print("Upload queue task done: ", upload_queue) 
 
 
 async def limited_uploader_progress():
@@ -188,9 +189,10 @@ async def start():
             # Enqueue the upload task. 'b' is set to False.
             try:
                 upload_queue.put_nowait((file, id, cpath, fname, file_size, False))
-                print("upload queue no wait ", upload_queue)
+
             except asyncio.QueueFull:
                 logger.error(f"Queue full! Could not add '{fname}' to upload queue.")
+        print("upload queue no wait ", upload_queue)
 
 
     # Create the root folder in the cloud if it does not exist.
