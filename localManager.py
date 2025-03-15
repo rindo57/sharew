@@ -51,7 +51,10 @@ def getCpath(name, cparent):
 
     try:
         folder_data = DRIVE_DATA.get_directory(cparent)
+        print("folder 1 ", folder_data)
         folder_data = convert_class_to_dict(folder_data, isObject=True, showtrash=False)
+         print("folder 2 ", folder_data)
+        print("folder items: ", folder_data["contents"].items())
         for id, data in folder_data["contents"].items():
             if data["name"] == name:
                 logger.info(
@@ -215,6 +218,7 @@ async def start():
         print("folders", folders)
         uploader="XenZen"
         for new_lpath in folders:
+            print("cpath ", cpath)
             folder_name = os.path.basename(new_lpath)
             print("folder name ", folder_name)
             new_cpath = getCpath(folder_name, cpath)
