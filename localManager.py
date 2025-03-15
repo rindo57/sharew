@@ -53,7 +53,7 @@ def getCpath(name, cparent):
         folder_data = DRIVE_DATA.get_directory(cparent)
         print("folder 1 ", folder_data)
         folder_data = convert_class_to_dict(folder_data, isObject=True, showtrash=False)
-         print("folder 2 ", folder_data)
+        print("folder 2 ", folder_data)
         print("folder items: ", folder_data["contents"].items())
         for id, data in folder_data["contents"].items():
             if data["name"] == name:
