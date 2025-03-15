@@ -390,7 +390,7 @@ async def backup_drive_data(loop=True):
             logger.info("Backing up drive data to telegram")
             from utils.clients import get_client
 
-           # client = get_client()
+           client = get_client()
             time_text = f"📅 **Last Updated :** {get_current_utc_time()} (UTC +00:00)"
             caption = ("UI")
             msgx = await client.get_messages(
