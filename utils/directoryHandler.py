@@ -396,7 +396,7 @@ async def backup_drive_data(loop=True):
                 config.STORAGE_CHANNEL, config.DATABASE_BACKUP_MSG_ID
             )
             if msgx.caption == "Script":
-                await loadDriveData2()
+                await loadDriveData()
             # Create the media document without file_name.
                 media_doc = InputMediaDocument(drive_cache_path, caption=caption)
             # Pass file_name as parameter to edit_message_media.
@@ -516,7 +516,7 @@ async def init_drive_data():
     DRIVE_DATA.save()
 
 async def loadDriveData2():
-    global DRIVE_DATA, BOT_MODE
+    global DRIVE_DATA
 
     # Checking if the backup file exists on telegram
     from utils.clients import get_client
@@ -533,6 +533,7 @@ async def loadDriveData2():
 
         if msg.document.file_name == "drive.data":
             dl_path = await msg.download()
+            print("load drive 2 ", dl_path)
             with open(dl_path, "rb") as f:
                 DRIVE_DATA = pickle.load(f)
 
@@ -566,6 +567,7 @@ async def loadDriveData():
 
         if msg.document.file_name == "drive.data":
             dl_path = await msg.download()
+            print("load drive", dl_path)
             with open(dl_path, "rb") as f:
                 DRIVE_DATA = pickle.load(f)
 
